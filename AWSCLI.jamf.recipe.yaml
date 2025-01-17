@@ -2,13 +2,13 @@ Identifier: com.github.adtejaa.jamf.AWSCLI
 ParentRecipe: com.github.homebysix.pkg.AWSCLI
 Input:
   NAME: AWSCLI
-  CATEGORY: Office
+  CATEGORY: Utility
   GROUP_NAME: "%NAME%-update-smart"
   GROUP_TEMPLATE: JamfSmartGroupTemplate.xml
   POLICY_CATEGORY: "%CATEGORY%"
   POLICY_NAME: "Install Latest %NAME%"
   POLICY_TEMPLATE: JamfPolicyTemplate.xml
-  POLICY_TRIGGER: Install_MSOffice365
+  POLICY_TRIGGER: Install_awscli
   SELF_SERVICE_DESCRIPTION: WorkPlace
   SELF_SERVICE_DISPLAY_NAME: "Install Latest %NAME%"
   SELF_SERVICE_ICON: "%NAME%.png"
