@@ -9,7 +9,7 @@ Input:
   POLICY_NAME: "Install Latest %NAME%"
   POLICY_TEMPLATE: JamfPolicyTemplate.xml
   POLICY_TRIGGER: Install_MSOffice365
-  SELF_SERVICE_DESCRIPTION: WorkPlace.
+  SELF_SERVICE_DESCRIPTION: WorkPlace
   SELF_SERVICE_DISPLAY_NAME: "Install Latest %NAME%"
   SELF_SERVICE_ICON: "%NAME%.png"
   TESTING_GROUP_NAME: Testing
