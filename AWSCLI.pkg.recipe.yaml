@@ -1,4 +1,4 @@
-Identifier: com.github.adtejaa.jamf.AWSCLI
+Identifier: com.github.adtejaa.pkg.AWSCLI
 ParentRecipe: com.github.homebysix.pkg.AWSCLI
 Input:
   NAME: AWSCLI
