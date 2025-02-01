@@ -102,7 +102,7 @@ Process:
 ### 🔹 8. Upload Policy to Jamf for Self-Service ###
 - Processor: com.github.grahampugh.jamf-upload.processors/JamfPolicyUploader
   Arguments:
-    policy_name: '%POLICY_NAME%'
+    policy_name: '%POLICY_NAME%_%version%'
     policy_template: '%POLICY_TEMPLATE%'
     replace_policy: true
     icon: '%SELF_SERVICE_ICON%'
