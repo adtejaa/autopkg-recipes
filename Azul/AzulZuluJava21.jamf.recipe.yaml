@@ -92,12 +92,12 @@ Process:
   Arguments:
     predicate: '%UPDATE_PREDICATE%'
 
-# ### 🔹 7. Create a Smart Group in Jamf ###
-# - Processor: com.github.grahampugh.jamf-upload.processors/JamfComputerGroupUploader
-#   Arguments:
-#     computergroup_name: '%GROUP_NAME%'
-#     computergroup_template: '%GROUP_TEMPLATE%'
-#     replace_group: true
+### 🔹 7. Create a Smart Group in Jamf ###
+- Processor: com.github.grahampugh.jamf-upload.processors/JamfComputerGroupUploader
+  Arguments:
+    computergroup_name: '%GROUP_NAME%'
+    computergroup_template: '%GROUP_TEMPLATE%'
+    replace_group: true
 
 ### 🔹 8. Upload Policy to Jamf for Self-Service ###
 - Processor: com.github.grahampugh.jamf-upload.processors/JamfPolicyUploader
