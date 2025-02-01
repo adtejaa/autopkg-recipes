@@ -17,7 +17,7 @@ Input:
   ARCHITECTURE: arm
   DOWNLOAD_FILE_EXTENSION: dmg
   BUNDLE_TYPE: jdk
-  CATEGORY: Developer Tools
+  CATEGORY: 'Developer Tools'
   POLICY_CATEGORY: '%CATEGORY%'
   POLICY_NAME: Install Latest %NAME%'
   POLICY_TEMPLATE: JamfPolicyTemplate.xml
