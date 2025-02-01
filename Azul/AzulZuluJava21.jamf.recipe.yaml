@@ -9,7 +9,7 @@ Identifier: com.github.adtejaa.jamf.AzulZuluJava21
 MinimumVersion: 2.3.0
 
 ProcessorPathOverrides:
-  AzulZuluJavaInfoProvider: "/Azul/AzulZuluJavaInfoProvider.py"
+  AzulZuluJavaInfoProvider: "AzulZuluJavaInfoProvider.py"
 
 Input:
   NAME: AzulZuluJava
