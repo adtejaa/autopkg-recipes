@@ -99,7 +99,7 @@ Process:
     computergroup_template: '%GROUP_TEMPLATE%'
     replace_group: true
     
-- Processor: SetVariable
+- Processor: VariablePlaceholder
   Arguments:
     version: '%java_version%'
 
