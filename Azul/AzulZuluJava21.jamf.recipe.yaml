@@ -19,7 +19,7 @@ Input:
   BUNDLE_TYPE: jdk
   CATEGORY: 'Developer Tools'
   POLICY_CATEGORY: '%CATEGORY%'
-  POLICY_NAME: Install Latest %NAME%'
+  POLICY_NAME: Install Latest %NAME%
   POLICY_TEMPLATE: JamfPolicyTemplate.xml
   POLICY_TRIGGER: Install_AzulZuluJava
   SELF_SERVICE_DESCRIPTION: WorkPlace.
