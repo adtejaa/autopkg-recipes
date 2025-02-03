@@ -37,6 +37,7 @@ Input:
   JAMF_CATEGORY: Developer Tools
   JAMF_PKG_NAME: '%NAME%'
   UPDATE_PREDICATE: pkg_uploaded == False
+  version: "%version%"
 
 Process:
 
@@ -98,7 +99,7 @@ Process:
     computergroup_name: '%GROUP_NAME%'
     computergroup_template: '%GROUP_TEMPLATE%'
     replace_group: true
-
+    
 
 ### 🔹 8. Upload Policy to Jamf for Self-Service ###
 - Processor: com.github.grahampugh.jamf-upload.processors/JamfPolicyUploader
