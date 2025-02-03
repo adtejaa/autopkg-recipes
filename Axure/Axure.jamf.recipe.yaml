@@ -15,25 +15,22 @@ Input:
   SELF_SERVICE_ICON: "axure_icon.png"
 
 Process:
-  # 🔹 Dynamically fetches the correct URL based on `MAJOR_VERSION`
+  # 🔹 Fetch the correct URL dynamically using `MAJOR_VERSION`
   - Processor: URLTextSearcher
     Arguments:
       url: "https://www.axure.com/release-history/rp%MAJOR_VERSION%"
       re_pattern: "https://axure.cachefly.net/versions/%MAJOR_VERSION%-0/AxureRP-Setup-[\\S]+\\.dmg"
 
-  # 🔹 Downloads the dynamically found URL
   - Processor: URLDownloader
     Arguments:
       filename: "%NAME%.dmg"
-      url: "%match%"
+      url: "%match%"  # 🔹 Uses the dynamically fetched URL
 
   - Processor: EndOfCheckPhase
-
   - Processor: CodeSignatureVerifier
     Arguments:
       input_path: "%pathname%/Axure RP %MAJOR_VERSION%.app"
       requirement: 'identifier "com.axure.AxureRP%MAJOR_VERSION%" and anchor apple generic and certificate 1[field.1.2.840.113635.100.6.2.6] /* exists */ and certificate leaf[field.1.2.840.113635.100.6.1.13] /* exists */ and certificate leaf[subject.OU] = HUMW6UU796'
-
   - Processor: PlistReader
     Arguments:
       info_path: "%pathname%/Axure RP %MAJOR_VERSION%.app"
@@ -60,24 +57,20 @@ Process:
         id: "%bundleid%"
         options: "purge_ds_store"
 
-  # 🔹 Uploading category to JAMF
   - Processor: com.github.grahampugh.jamf-upload.processors/JamfCategoryUploader
     Arguments:
       category_name: "%CATEGORY%"
 
-  # 🔹 Uploading package to JAMF
   - Processor: com.github.grahampugh.jamf-upload.processors/JamfPackageUploader
     Arguments:
       pkg_category: "%CATEGORY%"
 
-  # 🔹 Uploading smart group to JAMF
   - Processor: com.github.grahampugh.jamf-upload.processors/JamfComputerGroupUploader
     Arguments:
       computergroup_name: "%GROUP_NAME%"
       computergroup_template: "%GROUP_TEMPLATE%"
       replace_group: "True"
 
-  # 🔹 Uploading policy to JAMF
   - Processor: com.github.grahampugh.jamf-upload.processors/JamfPolicyUploader
     Arguments:
       icon: "%SELF_SERVICE_ICON%"
