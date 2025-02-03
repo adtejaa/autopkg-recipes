@@ -48,7 +48,7 @@ Process:
         options: purge_ds_store
   - Processor: com.github.grahampugh.jamf-upload.processors/JamfCategoryUploader
     Arguments:
-      category_name: '%{CATEGORY}'
+      category_name: %CATEGORY%
   - Processor: com.github.grahampugh.jamf-upload.processors/JamfPackageUploader
     Arguments:
       pkg_category: %CATEGORY%
