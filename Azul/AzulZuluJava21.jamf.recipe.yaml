@@ -5,7 +5,7 @@ Description: |
   Architectures: x86, arm
   Extensions: zip, tar.gz, dmg
   Bundle Types: jre, jdk, jre_fx, jdk_fx
-Identifier: com.github.adtejaa.jamf.AzulZuluJava21
+Identifier: com.github.adtejaa.jamf.AzulZuluJava
 MinimumVersion: 2.3.0
 
 ProcessorPathOverrides:
