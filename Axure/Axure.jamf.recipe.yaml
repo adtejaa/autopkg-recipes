@@ -1,4 +1,4 @@
-identifier: com.github.adtejaa.axure
+identifier: com.github.adtejaa.jamf.axure
 description: Downloads, packages, and uploads Axure RP to JAMF.
 input:
   DOWNLOAD_URL: https://axure.cachefly.net/AxureRP-Setup.dmg
