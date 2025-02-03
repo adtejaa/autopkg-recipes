@@ -7,7 +7,7 @@ Input:
   BASE_URL: 'https://axure.cachefly.net/versions'
   NAME: 'Axure RP'
   CATEGORY: "Development"
-  POLICY_CATEGORY: %Development%
+  POLICY_CATEGORY: Development
   GROUP_NAME: Axure RP 
   GROUP_TEMPLATE: JamfSmartGroupTemplate.xml
   POLICY_NAME: Install Axure RP
