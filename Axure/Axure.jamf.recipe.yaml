@@ -1,6 +1,8 @@
-identifier: com.github.adtejaa.axure
-description: Downloads, packages, and uploads Axure RP to JAMF.
-input:
+Identifier: com.github.adtejaa.axure
+Description: Downloads, packages, and uploads Axure RP to JAMF.
+MinimumVersion: "2.3.0"
+
+Input:
   DOWNLOAD_URL: "https://axure.cachefly.net/AxureRP-Setup.dmg"
   MAJOR_VERSION: "9"
   NAME: "Axure RP %{MAJOR_VERSION}"
@@ -11,52 +13,51 @@ input:
   POLICY_NAME: "Install Axure RP"
   POLICY_TEMPLATE: "JamfPolicyTemplate.xml"
   SELF_SERVICE_ICON: "axure_icon.png"
-minimum_version: "2.3.0"
-process:
-  - processor: URLDownloader
-    arguments:
+Process:
+  - Processor: URLDownloader
+    Arguments:
       filename: "%{NAME}.dmg"
       url: "%{DOWNLOAD_URL}"
-  - processor: EndOfCheckPhase
-  - processor: CodeSignatureVerifier
-    arguments:
+  - Processor: EndOfCheckPhase
+  - Processor: CodeSignatureVerifier
+    Arguments:
       input_path: "%{pathname}/Axure RP %{MAJOR_VERSION}.app"
       requirement: 'identifier "com.axure.AxureRP%{MAJOR_VERSION}" and anchor apple generic and certificate 1[field.1.2.840.113635.100.6.2.6] /* exists */ and certificate leaf[field.1.2.840.113635.100.6.1.13] /* exists */ and certificate leaf[subject.OU] = HUMW6UU796'
-  - processor: PlistReader
-    arguments:
+  - Processor: PlistReader
+    Arguments:
       info_path: "%{pathname}/Axure RP %{MAJOR_VERSION}.app"
       plist_keys:
         CFBundleVersion: "version"
         CFBundleIdentifier: "bundleid"
-  - processor: PkgRootCreator
-    arguments:
+  - Processor: PkgRootCreator
+    Arguments:
       pkgroot: "%{RECIPE_CACHE_DIR}/%{NAME}"
       pkgdirs:
         Applications: "0775"
-  - processor: Copier
-    arguments:
+  - Processor: Copier
+    Arguments:
       source_path: "%{pathname}/Axure RP %{MAJOR_VERSION}.app"
       destination_path: "%{pkgroot}/Applications/Axure RP %{MAJOR_VERSION}.app"
-  - processor: PkgCreator
-    arguments:
+  - Processor: PkgCreator
+    Arguments:
       pkg_request:
         pkgname: "%{NAME}-%{version}"
         pkgdir: "%{RECIPE_CACHE_DIR}"
         id: "%{bundleid}"
         options: "purge_ds_store"
-  - processor: com.github.grahampugh.jamf-upload.processors/JamfCategoryUploader
-    arguments:
+  - Processor: com.github.grahampugh.jamf-upload.Processors/JamfCategoryUploader
+    Arguments:
       category_name: "%{CATEGORY}"
-  - processor: com.github.grahampugh.jamf-upload.processors/JamfPackageUploader
-    arguments:
+  - Processor: com.github.grahampugh.jamf-upload.Processors/JamfPackageUploader
+    Arguments:
       pkg_category: "%{CATEGORY}"
-  - processor: com.github.grahampugh.jamf-upload.processors/JamfComputerGroupUploader
-    arguments:
+  - Processor: com.github.grahampugh.jamf-upload.Processors/JamfComputerGroupUploader
+    Arguments:
       computergroup_name: "%{GROUP_NAME}"
       computergroup_template: "%{GROUP_TEMPLATE}"
       replace_group: "True"
-  - processor: com.github.grahampugh.jamf-upload.processors/JamfPolicyUploader
-    arguments:
+  - Processor: com.github.grahampugh.jamf-upload.Processors/JamfPolicyUploader
+    Arguments:
       icon: "%{SELF_SERVICE_ICON}"
       policy_name: "%{POLICY_NAME}"
       policy_template: "%{POLICY_TEMPLATE}"
