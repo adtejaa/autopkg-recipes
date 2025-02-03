@@ -42,14 +42,14 @@ Process:
   - Processor: PkgCreator
     Arguments:
       pkg_request:
-        pkgname: '%%NAME%-%version%'
+        pkgname: '%NAME%-%version%'
         pkgdir: '%RECIPE_CACHE_DIR%
         id: %bundleid%
         options: purge_ds_store
-  - Processor: 'com.github.grahampugh.jamf-upload.processors/JamfCategoryUploader
+  - Processor: com.github.grahampugh.jamf-upload.processors/JamfCategoryUploader
     Arguments:
       category_name: '%{CATEGORY}'
-  - Processor: com.github.grahampugh.jamf-upload.processors/JamfPackageUploader'
+  - Processor: com.github.grahampugh.jamf-upload.processors/JamfPackageUploader
     Arguments:
       pkg_category: %CATEGORY%
   - Processor: com.github.grahampugh.jamf-upload.processors/JamfComputerGroupUploader
@@ -57,7 +57,7 @@ Process:
       computergroup_name: %GROUP_NAME%
       computergroup_template: '%GROUP_TEMPLATE%
       replace_group: true
-  - Processor: 'com.github.grahampugh.jamf-upload.processors/JamfPolicyUploader'
+  - Processor: com.github.grahampugh.jamf-upload.processors/JamfPolicyUploader
     Arguments:
       icon: %SELF_SERVICE_ICON%
       policy_name: %POLICY_NAME%
