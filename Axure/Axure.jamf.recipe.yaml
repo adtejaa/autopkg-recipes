@@ -5,12 +5,12 @@ MinimumVersion: "2.3.0"
 Input:
   MAJOR_VERSION: '9'
   BASE_URL: 'https://axure.cachefly.net/versions'
-  NAME: Axure RP %MAJOR_VERSION%
+  NAME: 'Axure RP'
   CATEGORY: "Development"
-  POLICY_CATEGORY: %CATEGORY%
-  GROUP_NAME: Axure RP %MAJOR_VERSION%
+  POLICY_CATEGORY: %Development%
+  GROUP_NAME: Axure RP 
   GROUP_TEMPLATE: JamfSmartGroupTemplate.xml
-  POLICY_NAME: Install Axure RP %MAJOR_VERSION%
+  POLICY_NAME: Install Axure RP
   POLICY_TEMPLATE: JamfPolicyTemplate.xml
   SELF_SERVICE_ICON: axure.png
   SELF_SERVICE_DESCRIPTION: 'Axure RP is the only UX tool that gives UX professionals the power to build realistic, functional prototypes.'
