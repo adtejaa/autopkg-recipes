@@ -1,6 +1,6 @@
 Identifier: com.github.adtejaa.axure
 Description: Downloads, packages, and uploads Axure RP to JAMF.
-MinimumVersion: "2.3.0"
+MinimumVersion: 2.3.0
 
 Input:
   DOWNLOAD_URL: "https://axure.cachefly.net/AxureRP-Setup.dmg"
