@@ -3,7 +3,7 @@ Description: "Downloads, packages, and uploads the latest Axure RP to JAMF."
 MinimumVersion: "2.3.0"
 
 Input:
-  MAJOR_VERSION: 11
+  MAJOR_VERSION: "11"
   NAME: "Axure RP"
   BASE_URL: "https://axure.cachefly.net"
   DOWNLOAD_URL: "https://axure.cachefly.net/AxureRP-Setup.dmg"
