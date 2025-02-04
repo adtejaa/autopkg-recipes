@@ -12,6 +12,8 @@ Input:
   POLICY_NAME: "Install Axure RP"
   POLICY_TEMPLATE: "JamfPolicyTemplate.xml"
   SELF_SERVICE_ICON: "axure_icon.png"
+  SELF_SERVICE_DESCRIPTION: 'Axure RP is the only UX tool that gives UX professionals the power to build realistic, functional prototypes.'
+  UPDATE_PREDICATE: pkg_uploaded == False
 
 Process:
   - Processor: URLDownloader
