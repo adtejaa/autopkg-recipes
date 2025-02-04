@@ -3,63 +3,55 @@ Description: "Downloads, packages, and uploads the latest Axure RP to JAMF."
 MinimumVersion: "2.3.0"
 
 Input:
-  DOWNLOAD_URL: "https://axure.cachefly.net/AxureRP-Setup.dmg"
   NAME: "Axure RP"
+  BASE_URL: "https://axure.cachefly.net"
+  DOWNLOAD_URL: "https://axure.cachefly.net/AxureRP-Setup.dmg"
   CATEGORY: "Development"
-  POLICY_CATEGORY: "Software"
-  GROUP_NAME: "Axure Users"
+  MAJOR_VERSION: 11
+  POLICY_CATEGORY: "Development"
+  GROUP_NAME: "Axure RP"
   GROUP_TEMPLATE: "JamfSmartGroupTemplate.xml"
   POLICY_NAME: "Install Axure RP"
   POLICY_TEMPLATE: "JamfPolicyTemplate.xml"
-  SELF_SERVICE_ICON: "axure_icon.png"
-  SELF_SERVICE_DESCRIPTION: 'Axure RP is the only UX tool that gives UX professionals the power to build realistic, functional prototypes.'
-  UPDATE_PREDICATE: pkg_uploaded == False
+  SELF_SERVICE_ICON: "axure.png"
+  SELF_SERVICE_DESCRIPTION: "Axure RP is a UX prototyping tool."
+  UPDATE_PREDICATE: "pkg_uploaded == False"
 
 Process:
   - Processor: URLDownloader
     Arguments:
-      filename: "%NAME%.dmg"
-      url: "%DOWNLOAD_URL%"
+      filename: "%NAME%-latest.dmg"
+      url: "%DOWNLOAD_URL%"  # Uses the latest available version
 
   - Processor: EndOfCheckPhase
 
-  - Processor: DmgMounter
-    Arguments:
-      dmg_path: "%pathname%"  
-
-  - Processor: FileFinder
-    Arguments:
-      find_path: "/Volumes/%NAME%/"
-      pattern: "Axure RP*.app"  # 🔹 Finds any versioned Axure RP app
-      find_return_type: "path"  
-
   - Processor: CodeSignatureVerifier
     Arguments:
-      input_path: "%found_file%"  # 🔹 Uses dynamically found app name
+      input_path: "%pathname%/Axure RP.app"
       requirement: 'identifier "com.axure.AxureRP" and anchor apple generic and certificate 1[field.1.2.840.113635.100.6.2.6] /* exists */ and certificate leaf[field.1.2.840.113635.100.6.1.13] /* exists */ and certificate leaf[subject.OU] = HUMW6UU796'
 
   - Processor: PlistReader
     Arguments:
-      info_path: "%found_file%"
+      info_path: "%pathname%/Axure RP.app"
       plist_keys:
         CFBundleVersion: "version"
         CFBundleIdentifier: "bundleid"
 
   - Processor: PkgRootCreator
     Arguments:
-      pkgroot: "%RECIPE_CACHE_DIR%/%NAME%-latest"
+      pkgroot: "%RECIPE_CACHE_DIR%/%NAME%"
       pkgdirs:
         Applications: "0775"
 
   - Processor: Copier
     Arguments:
-      source_path: "%found_file%"
-      destination_path: "%pkgroot%/Applications/%NAME%.app"
+      source_path: "%pathname%/Axure RP.app"
+      destination_path: "%pkgroot%/Applications/Axure RP.app"
 
   - Processor: PkgCreator
     Arguments:
       pkg_request:
-        pkgname: "%NAME%-latest-%version%"
+        pkgname: "%NAME%-%version%"
         pkgdir: "%RECIPE_CACHE_DIR%"
         id: "%bundleid%"
         options: "purge_ds_store"
