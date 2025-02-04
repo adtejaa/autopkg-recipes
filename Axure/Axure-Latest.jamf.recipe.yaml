@@ -28,7 +28,7 @@ Process:
   - Processor: CodeSignatureVerifier
     Arguments:
       input_path: "%pathname%/Axure RP %MAJOR_VERSION%.app"
-      requirement: 'identifier "com.axure.AxureRP" and anchor apple generic and certificate 1[field.1.2.840.113635.100.6.2.6] /* exists */ and certificate leaf[field.1.2.840.113635.100.6.1.13] /* exists */ and certificate leaf[subject.OU] = HUMW6UU796'
+      requirement: 'identifier "com.axure.AxureRP%MAJOR_VERSION%" and anchor apple generic and certificate 1[field.1.2.840.113635.100.6.2.6] /* exists */ and certificate leaf[field.1.2.840.113635.100.6.1.13] /* exists */ and certificate leaf[subject.OU] = HUMW6UU796'
 
   - Processor: PlistReader
     Arguments:
