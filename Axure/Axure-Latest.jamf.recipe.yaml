@@ -32,7 +32,7 @@ Process:
 
   - Processor: PlistReader
     Arguments:
-      iinfo_path: "%pathname%/Axure RP %MAJOR_VERSION%.app"
+      info_path: "%pathname%/Axure RP %MAJOR_VERSION%.app"
       plist_keys:
         CFBundleVersion: "version"
         CFBundleIdentifier: "bundleid"
