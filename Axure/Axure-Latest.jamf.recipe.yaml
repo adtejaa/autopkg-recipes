@@ -1,6 +1,17 @@
 Identifier: com.github.adtejaa.axure-latest
 Description: "Downloads, packages, and uploads the latest Axure RP to JAMF."
 MinimumVersion: "2.3.0"
+Input:
+  DOWNLOAD_URL: "https://axure.cachefly.net/AxureRP-Setup.dmg"
+  MAJOR_VERSION: "9"
+  NAME: "Axure RP %MAJOR_VERSION%"
+  CATEGORY: "Development"
+  POLICY_CATEGORY: "Software"
+  GROUP_NAME: "Axure Users"
+  GROUP_TEMPLATE: "JamfSmartGroupTemplate.xml"
+  POLICY_NAME: "Install Axure RP"
+  POLICY_TEMPLATE: "JamfPolicyTemplate.xml"
+  SELF_SERVICE_ICON: "axure_icon.png"
 
 Process:
   - Processor: URLDownloader
