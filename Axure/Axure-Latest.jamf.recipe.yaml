@@ -1,49 +1,71 @@
 Identifier: com.github.adtejaa.axure-latest
-Description: "Downloads, packages, and uploads the latest Axure RP to JAMF."
+Description: "Downloads, packages, and uploads the latest Axure RP version to JAMF."
 MinimumVersion: "2.3.0"
 
 Input:
-  BASE_URL: "https://axure.cachefly.net"
-  NAME: "Axure RP"
+  BASE_URL: 'https://axure.cachefly.net'
+  NAME: 'Axure RP'
   CATEGORY: "Development"
   POLICY_CATEGORY: "Development"
-  GROUP_NAME: "Axure RP"
+  GROUP_NAME: "Axure RP Users"
   GROUP_TEMPLATE: "JamfSmartGroupTemplate.xml"
   POLICY_NAME: "Install Axure RP"
   POLICY_TEMPLATE: "JamfPolicyTemplate.xml"
-  SELF_SERVICE_ICON: "Axure.png"
-  SELF_SERVICE_DESCRIPTION: "Axure RP is the only UX tool that gives UX professionals the power to build realistic, functional prototypes."
-  UPDATE_PREDICATE: pkg_uploaded == False
+  SELF_SERVICE_ICON: "axure_icon.png"
+  SELF_SERVICE_DESCRIPTION: 'Axure RP is the only UX tool that gives UX professionals the power to build realistic, functional prototypes.'
 
 Process:
+  # 🔹 Step 1: Download the latest Axure RP version
   - Processor: URLDownloader
     Arguments:
       filename: "%NAME%-latest.dmg"
-      url: "%BASE_URL%/AxureRP-Setup.dmg"  # 🔹 Always fetches the latest version
+      url: "https://axure.cachefly.net/AxureRP-Setup.dmg"
 
   - Processor: EndOfCheckPhase
 
+  # 🔹 Step 2: Mount and Detect App Name
+  - Processor: DmgMounter
+    Arguments:
+      dmg_path: "%pathname%"
+
+  - Processor: FileFinder
+    Arguments:
+      find_path: "%dmgmount%"
+      pattern: "*.app"
+      find_return_type: "path_list"
+
+  - Processor: VariableSetter
+    Arguments:
+      app_path: "%found_file%"
+
+  # 🔹 Step 3: Validate Code Signature
   - Processor: CodeSignatureVerifier
     Arguments:
-      input_path: "%pathname%/Axure RP.app"  # 🔹 Latest version may not follow strict versioning
+      input_path: "%app_path%"
       requirement: 'identifier "com.axure.AxureRP" and anchor apple generic and certificate 1[field.1.2.840.113635.100.6.2.6] /* exists */ and certificate leaf[field.1.2.840.113635.100.6.1.13] /* exists */ and certificate leaf[subject.OU] = HUMW6UU796'
 
+  - Processor: DmgUnmounter
+    Arguments:
+      dmg_path: "%pathname%"
+
+  # 🔹 Step 4: Read App Info (Bundle ID, Version)
   - Processor: PlistReader
     Arguments:
-      info_path: "%pathname%/Axure RP.app"
+      info_path: "%app_path%/Contents/Info.plist"
       plist_keys:
         CFBundleVersion: "version"
         CFBundleIdentifier: "bundleid"
 
+  # 🔹 Step 5: Create a Package
   - Processor: PkgRootCreator
     Arguments:
-      pkgroot: "%RECIPE_CACHE_DIR%/%NAME%-latest"
+      pkgroot: "%RECIPE_CACHE_DIR%/%NAME%"
       pkgdirs:
         Applications: "0775"
 
   - Processor: Copier
     Arguments:
-      source_path: "%pathname%/Axure RP.app"
+      source_path: "%app_path%"
       destination_path: "%pkgroot%/Applications/Axure RP.app"
 
   - Processor: PkgCreator
@@ -54,6 +76,7 @@ Process:
         id: "%bundleid%"
         options: "purge_ds_store"
 
+  # 🔹 Step 6: Upload to JAMF
   - Processor: com.github.grahampugh.jamf-upload.processors/JamfCategoryUploader
     Arguments:
       category_name: "%CATEGORY%"
@@ -71,6 +94,6 @@ Process:
   - Processor: com.github.grahampugh.jamf-upload.processors/JamfPolicyUploader
     Arguments:
       icon: "%SELF_SERVICE_ICON%"
-      policy_name: "%POLICY_NAME%-latest"
+      policy_name: "%POLICY_NAME%"
       policy_template: "%POLICY_TEMPLATE%"
       replace_policy: "True"
