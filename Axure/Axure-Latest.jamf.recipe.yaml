@@ -45,8 +45,8 @@ Process:
 
   - Processor: Copier
     Arguments:
-      source_path: "%pathname%/Axure RP.app"
-      destination_path: "%pkgroot%/Applications/Axure RP.app"
+      source_path: "%pathname%/Axure RP %MAJOR_VERSION%.app"
+      destination_path: "%pkgroot%/Applications/Axure RP %MAJOR_VERSION%.app"
 
   - Processor: PkgCreator
     Arguments:
