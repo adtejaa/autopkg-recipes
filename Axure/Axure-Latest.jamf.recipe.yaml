@@ -2,75 +2,52 @@ Identifier: com.github.adtejaa.axure-latest
 Description: "Downloads, packages, and uploads the latest Axure RP to JAMF."
 MinimumVersion: "2.3.0"
 
-Input:
-  BASE_URL: "https://axure.cachefly.net"
-  NAME: "Axure RP"
-  CATEGORY: "Development"
-  POLICY_CATEGORY: "Development"
-  GROUP_NAME: "Axure RP"
-  GROUP_TEMPLATE: "JamfSmartGroupTemplate.xml"
-  POLICY_NAME: "Install Axure RP"
-  POLICY_TEMPLATE: "JamfPolicyTemplate.xml"
-  SELF_SERVICE_ICON: "axure.png"
-  SELF_SERVICE_DESCRIPTION: "Axure RP is the only UX tool that gives UX professionals the power to build realistic, functional prototypes."
-  UPDATE_PREDICATE: pkg_uploaded == False
-
 Process:
   - Processor: URLDownloader
     Arguments:
-      filename: "%NAME%-latest.dmg"
-      url: "%BASE_URL%/AxureRP-Setup.dmg"  # 🔹 Always fetches the latest version
-
+      filename: "%NAME%.dmg"
+      url: "%DOWNLOAD_URL%"
   - Processor: EndOfCheckPhase
-
   - Processor: CodeSignatureVerifier
     Arguments:
-      input_path: "%pathname%/Axure RP.app"  # 🔹 Latest version may not follow strict versioning
-      requirement: 'identifier "com.axure.AxureRP" and anchor apple generic and certificate 1[field.1.2.840.113635.100.6.2.6] /* exists */ and certificate leaf[field.1.2.840.113635.100.6.1.13] /* exists */ and certificate leaf[subject.OU] = HUMW6UU796'
-
+      input_path: "%pathname%/Axure RP %MAJOR_VERSION%.app"
+      requirement: 'identifier "com.axure.AxureRP%MAJOR_VERSION%" and anchor apple generic and certificate 1[field.1.2.840.113635.100.6.2.6] /* exists */ and certificate leaf[field.1.2.840.113635.100.6.1.13] /* exists */ and certificate leaf[subject.OU] = HUMW6UU796'
   - Processor: PlistReader
     Arguments:
-      info_path: "%pathname%/Axure RP.app"
+      info_path: "%pathname%/Axure RP %MAJOR_VERSION%.app"
       plist_keys:
         CFBundleVersion: "version"
         CFBundleIdentifier: "bundleid"
-
   - Processor: PkgRootCreator
     Arguments:
-      pkgroot: "%RECIPE_CACHE_DIR%/%NAME%-latest"
+      pkgroot: "%RECIPE_CACHE_DIR%/%NAME%"
       pkgdirs:
         Applications: "0775"
-
   - Processor: Copier
     Arguments:
-      source_path: "%pathname%/Axure RP.app"
-      destination_path: "%pkgroot%/Applications/Axure RP.app"
-
+      source_path: "%pathname%/Axure RP %MAJOR_VERSION%.app"
+      destination_path: "%pkgroot%/Applications/Axure RP %MAJOR_VERSION%.app"
   - Processor: PkgCreator
     Arguments:
       pkg_request:
-        pkgname: "%NAME%-latest-%version%"
+        pkgname: "%NAME%-%version%"
         pkgdir: "%RECIPE_CACHE_DIR%"
         id: "%bundleid%"
         options: "purge_ds_store"
-
   - Processor: com.github.grahampugh.jamf-upload.processors/JamfCategoryUploader
     Arguments:
       category_name: "%CATEGORY%"
-
   - Processor: com.github.grahampugh.jamf-upload.processors/JamfPackageUploader
     Arguments:
       pkg_category: "%CATEGORY%"
-
   - Processor: com.github.grahampugh.jamf-upload.processors/JamfComputerGroupUploader
     Arguments:
       computergroup_name: "%GROUP_NAME%"
       computergroup_template: "%GROUP_TEMPLATE%"
       replace_group: "True"
-
   - Processor: com.github.grahampugh.jamf-upload.processors/JamfPolicyUploader
     Arguments:
       icon: "%SELF_SERVICE_ICON%"
-      policy_name: "%POLICY_NAME%-latest"
+      policy_name: "%POLICY_NAME%"
       policy_template: "%POLICY_TEMPLATE%"
       replace_policy: "True"
