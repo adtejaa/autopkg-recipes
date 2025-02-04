@@ -13,7 +13,7 @@ Input:
   GROUP_TEMPLATE: "JamfSmartGroupTemplate.xml"
   POLICY_NAME: "Install Axure RP"
   POLICY_TEMPLATE: "JamfPolicyTemplate.xml"
-  SELF_SERVICE_ICON: "axure.png"
+  SELF_SERVICE_ICON: "Axure.png"
   SELF_SERVICE_DESCRIPTION: "Axure RP is a UX prototyping tool."
   UPDATE_PREDICATE: "pkg_uploaded == False"
 
