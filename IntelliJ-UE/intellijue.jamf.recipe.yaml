@@ -31,7 +31,7 @@ Input:
   GROUP_TEMPLATE: "JamfSmartGroupTemplate.xml"
   REPLACE_GROUP: 'true'
   UPDATE_PREDICATE: pkg_uploaded == False
-  REPLACE_CATEGORY: 'false'
+  REPLACE_CATEGORY: 'true'
   
 Process:
   - Processor: com.github.grahampugh.jamf-upload.processors/JamfCategoryUploader
