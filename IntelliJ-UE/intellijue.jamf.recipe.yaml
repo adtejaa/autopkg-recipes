@@ -30,6 +30,7 @@ Input:
   GROUP_NAME: 'IntelliJ IDEA'
   GROUP_TEMPLATE: "JamfSmartGroupTemplate.xml"
   REPLACE_GROUP: 'true'
+  UPDATE_PREDICATE: pkg_uploaded == False
 
 Process:
   - Processor: com.github.grahampugh.jamf-upload.processors/JamfPackageUploader
