@@ -6,7 +6,7 @@ ParentRecipe: com.github.adtejaa.pkg.IntelliJ_UE
 MinimumVersion: '2.3'
 
 Input:
-  NAME: IntelliJ IDEA
+  NAME: 'IntelliJ IDEA'
   SOFTWARE_TITLE: IntelliJ_IDEA
   CATEGORY: Apps
   POLICY_CATEGORY: Apps
