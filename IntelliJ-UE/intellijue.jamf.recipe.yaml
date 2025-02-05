@@ -29,7 +29,7 @@ Input:
   PACKAGE_INFO: 'autopkg'
   GROUP_NAME: 'IntelliJ IDEA'
   GROUP_TEMPLATE: "JamfSmartGroupTemplate.xml"
-
+  REPLACE_GROUP: 'true'
 
 Process:
   - Processor: com.github.grahampugh.jamf-upload.processors/JamfPackageUploader
@@ -54,3 +54,9 @@ Process:
     Arguments:
       pkg_name_match: '%SOFTWARE_TITLE%-'
       versions_to_keep: 2
+      
+  - Processor: com.github.grahampugh.jamf-upload.processors/JamfComputerGroupUploader
+  Arguments:
+    computergroup_name: '%GROUP_NAME%'
+    computergroup_template: '%GROUP_TEMPLATE%'
+    replace_group: '%REPLACE_GROUP%'
