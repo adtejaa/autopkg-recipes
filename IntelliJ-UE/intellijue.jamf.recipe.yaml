@@ -1,4 +1,3 @@
-
 ---
 Description: Downloads the latest version IntelliJ IDEA, packages it, then uploads it to Jamf.
 Identifier: com.github.adtejaa.jamf.IntelliJ_UE
@@ -30,20 +29,30 @@ Input:
   GROUP_NAME: '%NAME%'
   GROUP_TEMPLATE: "JamfSmartGroupTemplate.xml"
   REPLACE_GROUP: 'true'
-  UPDATE_PREDICATE: pkg_uploaded == False
+  UPDATE_PREDICATE: 'pkg_uploaded == False'
   REPLACE_CATEGORY: 'true'
-  
+
 Process:
+  # 🟢 1. Ensure Category Exists Before Upload
   - Processor: com.github.grahampugh.jamf-upload.processors/JamfCategoryUploader
     Arguments:
       category_name: '%CATEGORY%'
       replace_category: '%REPLACE_CATEGORY%'
-    
+
+  # 🟢 2. Ensure Computer Group Exists **Before Policy Upload**
+  - Processor: com.github.grahampugh.jamf-upload.processors/JamfComputerGroupUploader
+    Arguments:
+      computergroup_name: '%GROUP_NAME%'
+      computergroup_template: '%GROUP_TEMPLATE%'
+      replace_group: '%REPLACE_GROUP%'
+
+  # 🟢 3. Upload Package
   - Processor: com.github.grahampugh.jamf-upload.processors/JamfPackageUploader
     Arguments:
       pkg_category: '%CATEGORY%'
       pkg_info: '%PACKAGE_INFO%'
 
+  # 🟢 4. Upload Policy **After Group Exists**
   - Processor: com.github.grahampugh.jamf-upload.processors/JamfPolicyUploader
     Arguments:
       policy_template: '%POLICY_TEMPLATE%'
@@ -51,8 +60,10 @@ Process:
       icon: '%SELF_SERVICE_ICON%'
       replace_policy: '%REPLACE_POLICY%'
 
+  # 🟢 5. Log Last Recipe Run Result
   - Processor: com.github.grahampugh.recipes.postprocessors/LastRecipeRunResult
 
+  # 🟢 6. Remove Old Packages (Only If Necessary)
   - Processor: StopProcessingIf
     Arguments:
       predicate: '%REMOVE_OLD_PACKAGES% == false'
@@ -61,13 +72,8 @@ Process:
     Arguments:
       pkg_name_match: '%SOFTWARE_TITLE%-'
       versions_to_keep: 2
-      
-  - Processor: com.github.grahampugh.jamf-upload.processors/JamfComputerGroupUploader
-    Arguments:
-      computergroup_name: '%GROUP_NAME%'
-      computergroup_template: '%GROUP_TEMPLATE%'
-      replace_group: '%REPLACE_GROUP%'
 
+  # 🟢 7. Final Stop Processing Check
   - Processor: StopProcessingIf
     Arguments:
       predicate: '%UPDATE_PREDICATE%'
