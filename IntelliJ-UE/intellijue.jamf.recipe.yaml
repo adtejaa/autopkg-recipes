@@ -61,3 +61,7 @@ Process:
       computergroup_name: '%GROUP_NAME%'
       computergroup_template: '%GROUP_TEMPLATE%'
       replace_group: '%REPLACE_GROUP%'
+
+  - Processor: StopProcessingIf
+    Arguments:
+      predicate: '%UPDATE_PREDICATE%'
