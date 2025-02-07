@@ -1,0 +1,15 @@
+---
+Description: "Downloads the current release version of Rider."
+Comment: "For the ARCH_TYPE variable use 'mac' for Intel, use 'macM1' for Apple Silicon"
+Identifier: "com.github.adtejaa.download.rider"
+Input:
+  NAME: "Rider"
+  ARCH_TYPE: "mac"
+  PROD_CODE: "RD"
+  CSV_REQ: >-
+    identifier "com.jetbrains.rider" and anchor apple generic and
+    certificate 1[field.1.2.840.113635.100.6.2.6] /* exists */ and certificate
+    leaf[field.1.2.840.113635.100.6.1.13] /* exists */ and certificate
+    leaf[subject.OU] = "2ZEFAR8TH3"
+MinimumVersion: "0.2.0"
+ParentRecipe: "com.github.smithjw-actions.download.JetBrains"
