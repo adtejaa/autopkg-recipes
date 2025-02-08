@@ -1,0 +1,17 @@
+---
+Description: "Downloads MacTeX and creates a package."
+Identifier: "com.github.adtejaa.pkg.MacTeX"
+MinimumVersion: "1.0.0"
+ParentRecipe: "com.github.adtejaa.download.MacTeX"
+
+Input:
+  NAME: "MacTeX"
+
+Process:
+  - Processor: "Versioner"
+    Arguments:
+      input_plist_path: "%pathname%/MacTeX.app/Contents/Info.plist"
+
+  - Processor: "AppPkgCreator"
+    Arguments:
+      pkg_path: "%RECIPE_CACHE_DIR%/MacTeX-%version%.pkg"

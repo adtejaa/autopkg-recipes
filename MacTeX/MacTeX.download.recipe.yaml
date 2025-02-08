@@ -1,0 +1,20 @@
+---
+Description: "Downloads the latest version of MacTeX."
+Identifier: "com.github.adtejaa.download.MacTeX"
+MinimumVersion: "0.2.9"
+
+Input:
+  NAME: "MacTeX"
+  DOWNLOADPAGE_URL: "http://www.tug.org/mactex/mactex-download.html"
+
+Process:
+  - Processor: "URLTextSearcher"
+    Arguments:
+      url: "%DOWNLOADPAGE_URL%"
+      re_pattern: "(https[^\"]+MacTeX.pkg)"
+
+  - Processor: "URLDownloader"
+    Arguments:
+      url: "%match%"
+
+  - Processor: "EndOfCheckPhase"
