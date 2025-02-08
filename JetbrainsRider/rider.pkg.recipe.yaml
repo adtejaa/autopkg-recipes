@@ -32,7 +32,7 @@ Process:
       pkg_request:
         pkgroot: "%pkgroot%"
         pkgname: "%NAME%-arm64-%version%"
-        id: "%identifier%"
+        id: "%bundleid%"
         version: "%version%"
         options: purge_ds_store
         chown:
