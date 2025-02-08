@@ -1,6 +1,6 @@
 
 ---
-Description: Downloads the latest version IntelliJ IDEA, packages it, then uploads it to Jamf.
+Description: Downloads the latest version Rider packages it, then uploads it to Jamf.
 Identifier: com.github.adtejaa.jamf.rider
 ParentRecipe: com.github.adtejaa.pkg.rider
 MinimumVersion: '2.3'
