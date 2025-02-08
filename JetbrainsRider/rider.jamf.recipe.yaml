@@ -7,7 +7,7 @@ MinimumVersion: '2.3'
 
 Input:
   NAME: 'Rider'
-  SOFTWARE_TITLE: %NAME%
+  SOFTWARE_TITLE: Rider
   CATEGORY: Apps
   POLICY_CATEGORY: Apps
   POLICY_NAME: '%NAME%'
