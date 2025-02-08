@@ -5,7 +5,7 @@ Identifier: "com.github.adtejaa.download.rider"
 Input:
   NAME: "Rider"
   ARCH_TYPE: "macM1"
-  PROD_CODE: "RD"
+  PRODUCT_CODE: "RD"
   CSV_REQ: >-
     identifier "com.jetbrains.rider" and anchor apple generic and
     certificate 1[field.1.2.840.113635.100.6.2.6] /* exists */ and certificate
