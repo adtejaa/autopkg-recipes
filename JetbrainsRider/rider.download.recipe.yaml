@@ -4,7 +4,7 @@ Comment: "For the ARCH_TYPE variable use 'mac' for Intel, use 'macM1' for Apple 
 Identifier: "com.github.adtejaa.download.rider"
 Input:
   NAME: "Rider"
-  ARCH_TYPE: "mac"
+  ARCH_TYPE: "macM1"
   PROD_CODE: "RD"
   CSV_REQ: >-
     identifier "com.jetbrains.rider" and anchor apple generic and
