@@ -1,5 +1,4 @@
 
-Below is the final recipe
 ---
 Description: Downloads the latest version IntelliJ IDEA, packages it, then uploads it to Jamf.
 Identifier: com.github.adtejaa.jamf.rider
