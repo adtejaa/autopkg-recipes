@@ -7,7 +7,7 @@ ParentRecipe: com.github.adtejaa.pkg.rider
 MinimumVersion: '2.3'
 
 Input:
-  NAME: 'IntelliJ IDEA'
+  NAME: 'Rider'
   SOFTWARE_TITLE: %NAME%
   CATEGORY: Apps
   POLICY_CATEGORY: Apps
