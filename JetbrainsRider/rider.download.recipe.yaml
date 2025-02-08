@@ -6,7 +6,7 @@ Input:
   NAME: "Rider"
   ARCH_TYPE: "macM1"
   PRODUCT_CODE: "RD"
-  CSV_REQ: >-
+  CSV_REQUIREMENT: >-
     identifier "com.jetbrains.rider" and anchor apple generic and
     certificate 1[field.1.2.840.113635.100.6.2.6] /* exists */ and certificate
     leaf[field.1.2.840.113635.100.6.1.13] /* exists */ and certificate
