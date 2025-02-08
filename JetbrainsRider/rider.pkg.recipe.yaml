@@ -1,0 +1,36 @@
+---
+Description: Create a package from the Rider download. 
+Identifier: "com.github.adtejaa.pkg.rider"
+Input:
+  NAME: "Rider"
+MinimumVersion: "2.3"
+ParentRecipe: "com.github.adtejaa.download.rider"
+Process:
+  - Processor: "PkgRootCreator"
+    Arguments:
+      pkgroot: "%RECIPE_CACHE_DIR%/%NAME%"
+      pkgdirs:
+        Applications: "0775"
+
+  - Processor: "Copier"
+    Arguments:
+      destination_path: "%pkgroot%/Applications/%NAME%.app"
+      source_path: "%pathname%/%NAME%.app"
+
+  - Processor: "PlistReader"
+    Arguments:
+      info_path: "%pkgroot%/Applications/%NAME%.app/Contents/Info.plist"
+      plist_keys:
+        CFBundleIdentifier: "identifier"
+
+  - Processor: "PkgCreator"
+    Arguments:
+      pkg_request:
+        pkgroot: "%pkgroot%"
+        pkgname: "%NAME%-arm64-%version%"
+        id: "%identifier%"
+        version: "%version%"
+        chown:
+          - path: "Applications"
+            user: "root"
+            group: "admin"
