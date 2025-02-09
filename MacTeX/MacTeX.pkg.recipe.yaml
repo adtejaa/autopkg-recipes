@@ -1,7 +1,7 @@
 ---
 Description: "Creates a package from the downloaded MacTeX.pkg."
 Identifier: "com.github.adtejaa.pkg.MacTeX"
-MinimumVersion: "1.0.0"
+MinimumVersion: '2.3'
 ParentRecipe: "com.github.adtejaa.download.MacTeX"
 
 Input:
