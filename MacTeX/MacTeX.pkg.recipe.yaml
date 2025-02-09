@@ -23,7 +23,7 @@ Process:
   - Processor: "PkgExtractor"
     Arguments:
       pkg_path: "%RECIPE_CACHE_DIR%/downloads/MacTeX.pkg"
-      destination_path: "%RECIPE_CACHE_DIR%/expanded_MacTeX"
+      extract_root: "%RECIPE_CACHE_DIR%/expanded_MacTeX"
 
   - Processor: "Versioner"
     Arguments:
@@ -40,5 +40,4 @@ Process:
       chown:
         - path: "/Applications"
           user: "root"
-          group: "admin"
-
+          group: "wheel"
