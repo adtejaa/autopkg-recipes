@@ -2,8 +2,8 @@
 
 ---
 Description: "Downloads the latest version mactex packages it, then uploads it to Jamf."
-Identifier: com.github.adtejaa.jamf.MacTex
-ParentRecipe: com.github.adtejaa.pkg.MacTex
+Identifier: "com.github.adtejaa.jamf.MacTex"
+ParentRecipe: "com.github.adtejaa.pkg.MacTex"
 MinimumVersion: '2.3'
 
 Input:
