@@ -1,7 +1,8 @@
 ---
-Description: "Downloads the latest version of MacTeX."
-Identifier: "com.github.adtejaa.download.MacTeX"
-MinimumVersion: "0.2.9"
+Description: "Downloads MacTeX and creates a package."
+Identifier: "com.github.adtejaa.pkg.MacTeX"
+MinimumVersion: "1.0.0"
+ParentRecipe: "com.github.adtejaa.download.MacTeX"
 
 Input:
   NAME: "MacTeX"
@@ -18,3 +19,26 @@ Process:
       url: "%match%"
 
   - Processor: "EndOfCheckPhase"
+
+  - Processor: "PkgExtractor"
+    Arguments:
+      pkg_path: "%RECIPE_CACHE_DIR%/downloads/MacTeX.pkg"
+      destination_path: "%RECIPE_CACHE_DIR%/expanded_MacTeX"
+
+  - Processor: "Versioner"
+    Arguments:
+      input_plist_path: "%RECIPE_CACHE_DIR%/expanded_MacTeX/Payload/Library/Receipts/Info.plist"
+      plist_keys:
+        CFBundleShortVersionString: "version"
+
+  - Processor: "AppPkgCreator"
+    Arguments:
+      pkg_path: "%RECIPE_CACHE_DIR%/MacTeX-%version%.pkg"
+      version: "%version%"
+      id: "org.tug.mactex"
+      install_location: "/Applications"
+      chown:
+        - path: "/Applications"
+          user: "root"
+          group: "wheel"
+
