@@ -25,9 +25,15 @@ Process:
       pkg_path: "%RECIPE_CACHE_DIR%/downloads/MacTeX.pkg"
       extract_root: "%RECIPE_CACHE_DIR%/expanded_MacTeX"
 
+  - Processor: "FileFinder"
+    Arguments:
+      find_method: "glob"
+      pattern: "%RECIPE_CACHE_DIR%/expanded_MacTeX/**/*.app"
+      result_output_var_name: "found_app"
+
   - Processor: "Versioner"
     Arguments:
-      input_plist_path: "%RECIPE_CACHE_DIR%/expanded_MacTeX/Payload/Library/Receipts/Info.plist"
+      input_plist_path: "%found_app%/Contents/Info.plist"
       plist_keys:
         CFBundleShortVersionString: "version"
 
@@ -40,4 +46,4 @@ Process:
       chown:
         - path: "/Applications"
           user: "root"
-          group: "wheel"
+          group: "admin"
