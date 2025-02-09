@@ -1,40 +1,45 @@
 ---
-Description: "Downloads MacTeX and creates a package."
+Description: "Creates a package from the downloaded MacTeX.pkg."
 Identifier: "com.github.adtejaa.pkg.MacTeX"
 MinimumVersion: "1.0.0"
 ParentRecipe: "com.github.adtejaa.download.MacTeX"
 
 Input:
   NAME: "MacTeX"
-  DOWNLOADPAGE_URL: "http://www.tug.org/mactex/mactex-download.html"
 
 Process:
-  - Processor: "URLTextSearcher"
-    Arguments:
-      url: "%DOWNLOADPAGE_URL%"
-      re_pattern: "(https[^\"]+MacTeX.pkg)"
-      result_output_var_name: "download_url"
-
-  - Processor: "URLDownloader"
-    Arguments:
-      url: "%download_url%"
-      filename: "MacTeX.pkg"
-      download_dir: "%RECIPE_CACHE_DIR%/downloads"
-
   - Processor: "EndOfCheckPhase"
 
-  - Processor: "InstallerPackageVersioner"
+  - Processor: "PkgExtractor"
     Arguments:
       pkg_path: "%RECIPE_CACHE_DIR%/downloads/MacTeX.pkg"
-      result_output_var_name: "version"
+      extract_root: "%RECIPE_CACHE_DIR%/expanded_MacTeX"
 
-  - Processor: "AppPkgCreator"
+  - Processor: "FileFinder"
     Arguments:
-      pkg_path: "%RECIPE_CACHE_DIR%/MacTeX-%version%.pkg"
-      version: "%version%"
-      id: "org.tug.mactex"
-      install_location: "/Applications"
-      chown:
-        - path: "/Applications"
-          user: "root"
-          group: "admin"
+      find_method: "glob"
+      pattern: "%RECIPE_CACHE_DIR%/expanded_MacTeX/**/*.pkginfo"
+      result_output_var_name: "found_pkginfo"
+
+  - Processor: "PlistReader"
+    Arguments:
+      info_path: "%found_pkginfo%"
+      plist_keys:
+        CFBundleShortVersionString: "version"
+
+  - Processor: "PkgCopier"
+    Arguments:
+      source_pkg: "%RECIPE_CACHE_DIR%/downloads/MacTeX.pkg"
+      destination_pkg: "%RECIPE_CACHE_DIR%/MacTeX-%version%.pkg"
+
+  - Processor: "PkgCreator"
+    Arguments:
+      pkg_request:
+        pkg_path: "%RECIPE_CACHE_DIR%/MacTeX-%version%.pkg"
+        id: "org.tug.mactex"
+        version: "%version%"
+        install_location: "/Applications"
+        chown:
+          - path: "/Applications"
+            user: "root"
+            group: "admin"
