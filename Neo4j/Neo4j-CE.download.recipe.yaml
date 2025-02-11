@@ -1,6 +1,6 @@
 ---
 Description: "Download recipe for Neo4j Desktop."
-Identifier: "com.github.n8felton.neo4j-desktop.download"
+Identifier: "com.github.adtejaa.neo4j-desktop.download"
 MinimumVersion: '0.2.9'
 
 Input:
