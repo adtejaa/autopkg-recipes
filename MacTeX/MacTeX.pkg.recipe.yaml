@@ -13,11 +13,11 @@ Process:
       flat_pkg_path: "%pathname%"
       destination_path: "%RECIPE_CACHE_DIR%/expand"
 
-  - Processor: "FileFinder"
-    Arguments:
-      find_method: "glob"
-      pattern: "%RECIPE_CACHE_DIR%/expand/Distribution"
-      result_output_var_name: "distribution_file"
+ - Processor: "URLTextSearcher"
+   Arguments:
+     url: "file://%distribution_file%"
+     re_pattern: 'version="(?P<version>\d+\.\d+)"'
+     result_output_var_name: "version" 
 
   - Processor: "URLTextSearcher"
     Arguments:
