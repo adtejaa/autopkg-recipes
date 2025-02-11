@@ -21,7 +21,7 @@ Process:
 
   - Processor: "URLTextSearcher"
     Arguments:
-      url: "file://%distribution_file%"
+      url: "file://%RECIPE_CACHE_DIR%/expand/Distribution"
       re_pattern: 'version="(?P<version>\d+\.\d+)"'
       result_output_var_name: "version"
 
