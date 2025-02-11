@@ -10,18 +10,31 @@ Input:
 Process:
   - Processor: "EndOfCheckPhase"
 
-  - Processor: "PkgInfoCreator"
+  - Processor: "FlatPkgUnpacker"
     Arguments:
       pkg_path: "%RECIPE_CACHE_DIR%/downloads/MacTeX.pkg"
-      output_plist_path: "%RECIPE_CACHE_DIR%/MacTeX.pkginfo"
+      destination_path: "%RECIPE_CACHE_DIR%/expanded_MacTeX"
 
-  - Processor: "PlistReader"
+  - Processor: "FileFinder"
     Arguments:
-      info_path: "%RECIPE_CACHE_DIR%/MacTeX.pkginfo"
+      find_method: "glob"
+      pattern: "%RECIPE_CACHE_DIR%/expanded_MacTeX/**/*.app"
+      result_output_var_name: "found_app"
+
+  - Processor: "Versioner"
+    Arguments:
+      input_plist_path: "%found_app%/Contents/Info.plist"
       plist_keys:
-        version: "version"
+        CFBundleShortVersionString: "version"
 
-  - Processor: "PkgCopier"
+  - Processor: "AppPkgCreator"
     Arguments:
-      source_pkg: "%RECIPE_CACHE_DIR%/downloads/MacTeX.pkg"
-      destination_pkg: "%RECIPE_CACHE_DIR%/MacTeX-%version%.pkg"
+      app_path: "%found_app%"
+      version: "%version%"
+      pkg_name: "%NAME%-%version%.pkg"
+      id: "org.tug.mactex"
+      install_location: "/Applications"
+      chown:
+        - path: "/Applications"
+          user: "root"
+          group: "admin"
