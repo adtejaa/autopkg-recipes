@@ -1,7 +1,7 @@
 ---
 Description: "Creates a package from the downloaded MacTeX.pkg."
 Identifier: "com.github.adtejaa.pkg.MacTeX"
-MinimumVersion: "2.3"
+MinimumVersion: '2.3'
 ParentRecipe: "com.github.adtejaa.download.MacTeX"
 
 Input:
@@ -10,31 +10,18 @@ Input:
 Process:
   - Processor: "EndOfCheckPhase"
 
-  - Processor: "PkgExtractor"
+  - Processor: "PkgInfoCreator"
     Arguments:
       pkg_path: "%RECIPE_CACHE_DIR%/downloads/MacTeX.pkg"
-      extract_root: "%RECIPE_CACHE_DIR%/expanded_MacTeX"
-
-  - Processor: "FileFinder"
-    Arguments:
-      find_method: "glob"
-      pattern: "%RECIPE_CACHE_DIR%/expanded_MacTeX/PackageInfo"
-      result_output_var_name: "found_pkginfo"
+      output_plist_path: "%RECIPE_CACHE_DIR%/MacTeX.pkginfo"
 
   - Processor: "PlistReader"
     Arguments:
-      info_path: "%found_pkginfo%"
+      info_path: "%RECIPE_CACHE_DIR%/MacTeX.pkginfo"
       plist_keys:
-        pkg-version: "version"
+        version: "version"
 
-  - Processor: "PkgCreator"
+  - Processor: "PkgCopier"
     Arguments:
-      pkg_request:
-        pkg_path: "%RECIPE_CACHE_DIR%/MacTeX-%version%.pkg"
-        id: "org.tug.mactex"
-        version: "%version%"
-        install_location: "/Applications"
-        chown:
-          - path: "/Applications"
-            user: "root"
-            group: "admin"
+      source_pkg: "%RECIPE_CACHE_DIR%/downloads/MacTeX.pkg"
+      destination_pkg: "%RECIPE_CACHE_DIR%/MacTeX-%version%.pkg"
