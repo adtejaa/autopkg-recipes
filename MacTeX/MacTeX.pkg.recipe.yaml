@@ -1,7 +1,7 @@
 ---
 Description: "Creates a package from the downloaded MacTeX.pkg."
 Identifier: "com.github.adtejaa.pkg.MacTeX"
-MinimumVersion: '2.3'
+MinimumVersion: "2.3"
 ParentRecipe: "com.github.adtejaa.download.MacTeX"
 
 Input:
@@ -18,19 +18,14 @@ Process:
   - Processor: "FileFinder"
     Arguments:
       find_method: "glob"
-      pattern: "%RECIPE_CACHE_DIR%/expanded_MacTeX/**/*.pkginfo"
+      pattern: "%RECIPE_CACHE_DIR%/expanded_MacTeX/PackageInfo"
       result_output_var_name: "found_pkginfo"
 
   - Processor: "PlistReader"
     Arguments:
       info_path: "%found_pkginfo%"
       plist_keys:
-        CFBundleShortVersionString: "version"
-
-  - Processor: "PkgCopier"
-    Arguments:
-      source_pkg: "%RECIPE_CACHE_DIR%/downloads/MacTeX.pkg"
-      destination_pkg: "%RECIPE_CACHE_DIR%/MacTeX-%version%.pkg"
+        pkg-version: "version"
 
   - Processor: "PkgCreator"
     Arguments:
