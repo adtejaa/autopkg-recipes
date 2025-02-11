@@ -1,0 +1,21 @@
+---
+Description: "Download recipe for Neo4j Desktop."
+Identifier: "com.github.n8felton.neo4j-desktop.download"
+MinimumVersion: '0.2.9'
+
+Input:
+  NAME: "Neo4j-Desktop"
+
+Process:
+  - Processor: "URLTextSearcher"
+    Arguments:
+      url: "https://neo4j.com/download/"
+      re_pattern: 'Neo4j Desktop (\d+\.\d+\.\d+)'
+      result_output_var_name: "version"
+
+  - Processor: "URLDownloader"
+    Arguments:
+      url: "https://neo4j.com/download/neo4j-desktop/?edition=desktop&flavour=osx&release=%version%&offline=false"
+      filename: "%NAME%-%version%.dmg"
+
+  - Processor: "EndOfCheckPhase"
