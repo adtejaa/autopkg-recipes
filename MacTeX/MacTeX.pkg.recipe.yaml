@@ -1,6 +1,5 @@
-
 ---
-Description: "Creates a package from the downloaded MacTeX.pkg."
+Description: "Downloads and processes the MacTeX installer package."
 Identifier: "com.github.adtejaa.pkg.MacTeX"
 MinimumVersion: '2.3'
 ParentRecipe: "com.github.adtejaa.download.MacTeX"
@@ -22,8 +21,8 @@ Process:
 
   - Processor: "URLTextSearcher"
     Arguments:
-      url: "file://%distribution_file%"
-      re_pattern: 'version="(?P<version>\d+\.\d+\.\d+)"'
+      url: "file:////%distribution_file%"
+      re_pattern: 'version="(?P<version>\d+\.\d+)"'
 
   - Processor: "PkgCopier"
     Arguments:
