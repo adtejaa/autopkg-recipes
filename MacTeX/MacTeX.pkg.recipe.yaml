@@ -19,11 +19,11 @@ Process:
   - Processor: PkgPayloadUnpacker
     Arguments:
       destination_path: "%RECIPE_CACHE_DIR%/unpack"
-      pkg_payload_path: "%RECIPE_CACHE_DIR%/unpack/MactTex.pkg/Payload"
+      pkg_payload_path: "%RECIPE_CACHE_DIR%/unpack/MacTeX.pkg/Payload"
 
   - Processor: Versioner
     Arguments:
-      input_plist_path: "%RECIPE_CACHE_DIR%/unpack/MactTex.app/Contents/Info.plist"
+      input_plist_path: "%RECIPE_CACHE_DIR%/unpack/MacTeX.app/Contents/Info.plist"
       plist_version_key: CFBundleShortVersionString
 
   - Processor: PkgCopier
