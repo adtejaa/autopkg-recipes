@@ -5,7 +5,7 @@ MinimumVersion: '0.2.9'
 Input:
   NAME: Neo4j-Desktop
   DOWNLOAD_PAGE_URL: 'https://neo4j.com/download/'
-  DOWNLOAD_URL_TEMPLATE: 'https://neo4j.com/artifact.php?name=neo4j-desktop-%version%.dmg'
+  DOWNLOAD_URL_TEMPLATE: 'https://neo4j.com/download-thanks-desktop/?edition=desktop&flavour=mac&release=%version%&offline=true'
 
 Process:
   - Processor: URLTextSearcher
@@ -15,6 +15,6 @@ Process:
       result_output_var_name: version
   - Processor: URLDownloader
     Arguments:
+      filename: 'Neo4j-Desktop-%version%.dmg'
       url: '%DOWNLOAD_URL_TEMPLATE%'
-      filename: '%NAME%-%version%.dmg'
   - Processor: EndOfCheckPhase
