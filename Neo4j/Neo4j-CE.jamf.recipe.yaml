@@ -6,8 +6,8 @@ ParentRecipe: "com.github.adtejaa.pkg.Neo4jDesktop"
 MinimumVersion: "2.3"
 
 Input:
-  NAME: "Neo4j"
-  SOFTWARE_TITLE: "Neo4j"
+  NAME: "Neo4j Desktop"
+  SOFTWARE_TITLE: "Neo4j Desktop"
   CATEGORY: "Apps"
   POLICY_CATEGORY: "Apps"
   POLICY_NAME: "%NAME%"
