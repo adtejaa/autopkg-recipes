@@ -4,7 +4,7 @@ MinimumVersion: '0.2.9'
 
 Input:
   NAME: Neo4j-Desktop
-  DOWNLOAD_PAGE_URL: https://neo4j.com/download/
+  DOWNLOAD_PAGE_URL: 'https://neo4j.com/download/'
   DOWNLOAD_URL_TEMPLATE: 'https://neo4j.com/artifact.php?name=neo4j-desktop-%version%.dmg'
 
 Process:
