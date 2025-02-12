@@ -36,7 +36,7 @@ Process:
         chown:
           - path: Applications
             user: root
-            group: wheel
+            group: admin
         id: '%bundleid%'
         options: purge_ds_store
         pkgname: '%SOFTWARE_TITLE%-%version%'
