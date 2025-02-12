@@ -3,7 +3,7 @@ Description: Downloads the latest version of Neo4j Desktop for macOS.
 MinimumVersion: '2.3.0'
 
 Input:
-  NAME: Neo4j-Desktop
+  NAME: Neo4j
   DOWNLOAD_PAGE_URL: 'https://neo4j.com/deployment-center/'
 
 Process:
@@ -16,6 +16,6 @@ Process:
   - Processor: URLDownloader
     Arguments:
       filename: '%NAME%-%version%.dmg'
-      url: 'https://dist.neo4j.org/neo4j-desktop/mac/Neo4j%20Desktop-%version%.dmg'
+      url: 'https://dist.neo4j.org/neo4j-desktop/mac/Neo4j-%version%.dmg'
 
   - Processor: EndOfCheckPhase
