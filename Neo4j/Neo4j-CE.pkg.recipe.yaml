@@ -37,4 +37,4 @@ Process:
         chown:
           - path: "Applications"
             user: "root"
-            group: "wheel"
+            group: "admin"
