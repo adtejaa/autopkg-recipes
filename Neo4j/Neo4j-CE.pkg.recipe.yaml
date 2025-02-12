@@ -1,7 +1,7 @@
 Description: Create a package from the Neo4j Desktop download.
 Identifier: "com.github.adtejaa.pkg.Neo4jDesktop"
 Input:
-  NAME: "Neo4j Desktop"
+  NAME: "Neo4j"
 MinimumVersion: "2.3"
 ParentRecipe: "com.github.adtejaa.download.Neo4jDesktop"
 
