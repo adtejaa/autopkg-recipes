@@ -16,9 +16,9 @@ Process:
 
   - Processor: EndOfCheckPhase
     Arguments:
-      version: '%version%'
+      DOWNLOAD_URL: '%DOWNLOAD_URL_TEMPLATE%'
 
   - Processor: URLDownloader
     Arguments:
       filename: '%NAME%-%version%.dmg'
-      url: '%DOWNLOAD_URL_TEMPLATE%'
+      url: '%DOWNLOAD_URL%'
