@@ -1,5 +1,5 @@
 ---
-Identifier: "local.pkg.RoyalTSX"
+Identifier: "com.github.adtejaa.jamf.RoyalTSX"
 Description: "Uploads Royal TSX to Jamf Pro and makes it available in Self Service."
 
 Input:
