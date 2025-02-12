@@ -6,11 +6,12 @@ Input:
   NAME: Neo4j-Desktop
   DOWNLOAD_PAGE_URL: 'https://neo4j.com/deployment-center/'
   DOWNLOAD_URL_TEMPLATE: 'https://dist.neo4j.org/neo4j-desktop/mac/Neo4j%20Desktop-%version%.dmg'
+
 Process:
   - Processor: URLTextSearcher
     Arguments:
       url: '%DOWNLOAD_PAGE_URL%'
-      re_pattern: "edition=desktop&flavour=osx&release=(\\d+\\.\\d+\\.\\d+)&offline=false"
+      re_pattern: 'Neo4j Desktop (\d+\.\d+\.\d+)\s*Mac\s*Neo4j Desktop \(dmg\)'
       result_output_var_name: version
   - Processor: URLDownloader
     Arguments:
