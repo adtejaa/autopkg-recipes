@@ -32,16 +32,6 @@ Input:
 
 ParentRecipe: "com.github.homebysix.pkg.RoyalTSX"
 ParentRecipeTrustInfo:
-  non_core_processors: {}
-  parent_recipes:
-    com.github.homebysix.download.RoyalTSX:
-      git_hash: "19bd0c5b391ece09d9c05a78c60426576d630e32"
-      path: "~/Library/AutoPkg/RecipeRepos/com.github.autopkg.homebysix-recipes/Royal/RoyalTSX.download.recipe"
-      sha256_hash: "a237844597f98a24a5c32d67ff564034ef0f73e423c25d7292a5c21a2bf5adc7"
-    com.github.homebysix.pkg.RoyalTSX:
-      git_hash: "a26aa3f486024024ed3c022d97d79a7d408b46b7"
-      path: "~/Library/AutoPkg/RecipeRepos/com.github.autopkg.homebysix-recipes/Royal/RoyalTSX.pkg.recipe"
-      sha256_hash: "b4e44e61ff60847eabd0834a7d648194271535f6fa5969a3bc8464a9ffc44d4b"
 
 Process:
   # 🟢 1. Ensure Category Exists Before Upload
