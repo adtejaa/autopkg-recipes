@@ -16,6 +16,6 @@ Process:
   - Processor: URLDownloader
     Arguments:
       filename: '%NAME%-%version%.dmg'
-      url: 'https://dist.neo4j.org/neo4j-desktop/mac/Neo4j-%version%.dmg'
+      url: 'https://dist.neo4j.org/neo4j-desktop/mac/Neo4j%20Desktop-%version%.dmg'
 
   - Processor: EndOfCheckPhase
