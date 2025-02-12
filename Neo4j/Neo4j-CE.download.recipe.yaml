@@ -13,14 +13,9 @@ Process:
       re_pattern: 'data-url="/download/neo4j-desktop/\?edition=desktop&flavour=osx&release=(\d+\.\d+\.\d+)&offline=false"'
       result_output_var_name: version
 
-  - Processor: VariableSubstituter
-    Arguments:
-      substitutions:
-        version: '%version%'
-
   - Processor: URLDownloader
     Arguments:
-      filename: 'Neo4j-Desktop-%version%.dmg'
+      filename: '%NAME%-%version%.dmg'
       url: 'https://dist.neo4j.org/neo4j-desktop/mac/Neo4j%20Desktop-%version%.dmg'
 
   - Processor: EndOfCheckPhase
