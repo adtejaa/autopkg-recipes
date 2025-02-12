@@ -1,5 +1,5 @@
 ---
-Identifier: "local.jamf.Tableau-Desktop"
+Identifier: "com.github.adtejaa.jamf.Tableau-Desktop"
 Description: "Tableau Desktop empowers users to create, analyze, and visualize data with interactive dashboards and reports, making data-driven decision-making easy."
 
 Input:
