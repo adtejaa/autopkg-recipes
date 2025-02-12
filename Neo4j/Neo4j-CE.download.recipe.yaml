@@ -1,4 +1,4 @@
-Identifier: com.github.yourusername.download.Neo4jDesktop
+Identifier: com.github.adtejaa.download.Neo4jDesktop
 Description: Downloads the latest version of Neo4j Desktop for macOS.
 MinimumVersion: '0.2.9'
 
