@@ -11,7 +11,7 @@ Process:
   - Processor: URLTextSearcher
     Arguments:
       url: '%DOWNLOAD_PAGE_URL%'
-      re_pattern: 'href="https://neo4j.com/artifact\.php\?name=neo4j-desktop-(\d+\.\d+\.\d+)\.dmg"'
+      re_pattern: 'data-url="/download/neo4j-desktop/\\?edition=desktop&flavour=osx&release=(\\d+\\.\\d+\\.\\d+)&offline=false"'
       result_output_var_name: version
   - Processor: URLDownloader
     Arguments:
