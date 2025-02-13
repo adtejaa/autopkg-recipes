@@ -21,6 +21,8 @@ Input:
   REMOVE_OLD_PACKAGES: 'true'
   REPLACE_CATEGORY: 'true'
   REPLACE_POLICY: 'true'
+  GROUP_NAME: '%NAME%'
+  GROUP_TEMPLATE: "JamfSmartGroupTemplate.xml"
   SELF_SERVICE_AVAILABLE: 'true'
   SELF_SERVICE_CATEGORY: '%CATEGORY%'
   SELF_SERVICE_DESCRIPTION: 'Create and configure lightweight, reproducible, and portable development environments.'
