@@ -1,0 +1,83 @@
+---
+Description: Downloads the latest version Vagrant Manager, packages it, then uploads it to Jamf.
+Identifier: com.github.adtejaa.jamf.tableau-prep
+ParentRecipe: com.github.adtejaa.pkg.tableau-prep
+MinimumVersion: '2.3'
+
+
+Input:
+  BYPASS_STOP_PROCESSING_IF_DOWNLOAD_UNCHANGED: null
+  DOWNLOAD_MISSING_FILE: null
+  NAME: ‘Vagrant ‘Manager
+  SOFTWARE_TITLE: %NAME%
+  CATEGORY: Apps
+  POLICY_CATEGORY: Apps
+  PACKAGE_INFO: autopkg
+  POLICY_CATEGORY: '%CATEGORY%'
+  POLICY_CUSTOM_TRIGGER: install-%NAME%
+  POLICY_NAME: '%NAME%'
+  POLICY_RUN_COMMAND: ' '
+  POLICY_RUN_RECON: 'false'
+  POLICY_TEMPLATE: JamfPolicyTemplate_allusers.xml
+  REMOVE_OLD_PACKAGES: 'true'
+  REPLACE_CATEGORY: 'true'
+  REPLACE_POLICY: 'true'
+  SELF_SERVICE_AVAILABLE: 'true'
+  SELF_SERVICE_CATEGORY: '%CATEGORY%'
+  SELF_SERVICE_DESCRIPTION: ‘Create and configure lightweight, reproducible, and portable development environments.’
+  SELF_SERVICE_DISPLAY_NAME: '%NAME%'
+  SELF_SERVICE_ICON: '%NAME%.png'
+  SELF_SERVICE_INSTALL_BUTTON: Install
+  SELF_SERVICE_REINSTALL_BUTTON: Install
+  SOFTWARE_TITLE: '%NAME%'''
+  UPDATE_PREDICATE: pkg_uploaded == False
+
+
+ParentRecipe: "com.github.adtejaa.pkg.VagrantManager"
+ParentRecipeTrustInfo:
+
+Process:
+  # 🟢 1. Ensure Category Exists Before Upload
+  - Processor: com.github.grahampugh.jamf-upload.processors/JamfCategoryUploader
+    Arguments:
+      category_name: '%CATEGORY%'
+      replace_category: '%REPLACE_CATEGORY%'
+
+  # 🟢 2. Ensure Computer Group Exists **Before Policy Upload**
+  - Processor: com.github.grahampugh.jamf-upload.processors/JamfComputerGroupUploader
+    Arguments:
+      computergroup_name: '%GROUP_NAME%'
+      computergroup_template: '%GROUP_TEMPLATE%'
+      replace_group: '%REPLACE_GROUP%'
+
+  # 🟢 3. Upload Package
+  - Processor: com.github.grahampugh.jamf-upload.processors/JamfPackageUploader
+    Arguments:
+      pkg_category: '%CATEGORY%'
+      pkg_info: '%PACKAGE_INFO%'
+
+  # 🟢 4. Upload Policy **After Group Exists**
+  - Processor: com.github.grahampugh.jamf-upload.processors/JamfPolicyUploader
+    Arguments:
+      policy_template: '%POLICY_TEMPLATE%'
+      policy_name: '%POLICY_NAME%'
+      icon: '%SELF_SERVICE_ICON%'
+      replace_policy: '%REPLACE_POLICY%'
+
+  # 🟢 5. Log Last Recipe Run Result
+  - Processor: com.github.grahampugh.recipes.postprocessors/LastRecipeRunResult
+
+  # 🟢 6. Remove Old Packages (Only If Necessary)
+  - Processor: StopProcessingIf
+    Arguments:
+      predicate: '%REMOVE_OLD_PACKAGES% == false'
+
+  - Processor: com.github.grahampugh.jamf-upload.processors/JamfPackageCleaner
+    Arguments:
+      pkg_name_match: '%SOFTWARE_TITLE%-'
+      versions_to_keep: 2
+
+  # 🟢 7. Final Stop Processing Check
+  - Processor: StopProcessingIf
+    Arguments:
+      predicate: pkg_uploaded == False
