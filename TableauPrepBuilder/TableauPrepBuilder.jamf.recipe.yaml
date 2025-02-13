@@ -35,9 +35,6 @@ Input:
   REPLACE_CATEGORY: 'true'
 
 
-
-Need to follow these steps
-
 Process:
   # 🟢 1. Ensure Category Exists Before Upload
   - Processor: com.github.grahampugh.jamf-upload.processors/JamfCategoryUploader
