@@ -5,7 +5,7 @@ MinimumVersion: "2.3.0"
 Input:
   NAME: "TableauPrep"
 
-ParentRecipe: ch.unibas.its.git.mcs.download.tableau-prep
+ParentRecipe: com.github.adtejaa.download.tableau-prep
 
 Process:
   - Processor: FlatPkgUnpacker
