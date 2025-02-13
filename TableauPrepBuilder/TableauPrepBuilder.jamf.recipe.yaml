@@ -21,7 +21,7 @@ Input:
   SELF_SERVICE_AVAILABLE: 'true'
   SELF_SERVICE_CATEGORY: '%CATEGORY%'
   SELF_SERVICE_DESCRIPTION: |
-    The IDE that makes development a more productive and enjoyable experience
+    Tableau Prep Builder simplifies data preparation with an intuitive interface, allowing users to clean, shape, and combine data for analysis in Tableau Desktop.
   SELF_SERVICE_DISPLAY_NAME: '%NAME%'
   SELF_SERVICE_ICON: '%SOFTWARE_TITLE%.png'
   SELF_SERVICE_INSTALL_BUTTON: Install
