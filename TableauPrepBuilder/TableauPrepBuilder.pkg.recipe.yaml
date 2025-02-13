@@ -1,4 +1,4 @@
-Description: Downloads latest Tableau Desktop disk image and makes a pkg.
+Description: Downloads latest Tableau Prep disk image and makes a pkg.
 Identifier: com.github.adtejaa.pkg.tableau-prep
 MinimumVersion: "2.3.0"
 
@@ -11,7 +11,7 @@ Process:
   - Processor: FlatPkgUnpacker
     Arguments:
       destination_path: "%RECIPE_CACHE_DIR%/unpack"
-      flat_pkg_path: "%pathname%/Tableau Prep.pkg"
+      flat_pkg_path: "%pathname%/Tableau Prep Builder.pkg"
       purge_destination: true
 
   - Processor: PkgPayloadUnpacker
@@ -29,5 +29,4 @@ Process:
   - Processor: PkgCopier
     Arguments:
       pkg_path: "%RECIPE_CACHE_DIR%/Tableau Prep-%version%.pkg"
-      source_pkg: "%pathname%/Tableau Prep.pkg"
-
+      source_pkg: "%pathname%/Tableau Prep Builder.pkg"
