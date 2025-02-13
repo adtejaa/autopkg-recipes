@@ -1,14 +1,13 @@
 ---
 Description: Downloads the latest version Vagrant Manager, packages it, then uploads it to Jamf.
-Identifier: com.github.adtejaa.jamf.tableau-prep
-ParentRecipe: com.github.adtejaa.pkg.tableau-prep
+Identifier: com.github.adtejaa.jamf.VagrantManager
 MinimumVersion: '2.3'
 
 
 Input:
   BYPASS_STOP_PROCESSING_IF_DOWNLOAD_UNCHANGED: null
   DOWNLOAD_MISSING_FILE: null
-  NAME: ‘Vagrant ‘Manager
+  NAME: 'Vagrant Manager'
   SOFTWARE_TITLE: %NAME%
   CATEGORY: Apps
   POLICY_CATEGORY: Apps
@@ -18,18 +17,18 @@ Input:
   POLICY_NAME: '%NAME%'
   POLICY_RUN_COMMAND: ' '
   POLICY_RUN_RECON: 'false'
-  POLICY_TEMPLATE: JamfPolicyTemplate_allusers.xml
+  POLICY_TEMPLATE: JamfPolicyTemplate_allcomputers.xml
   REMOVE_OLD_PACKAGES: 'true'
   REPLACE_CATEGORY: 'true'
   REPLACE_POLICY: 'true'
   SELF_SERVICE_AVAILABLE: 'true'
   SELF_SERVICE_CATEGORY: '%CATEGORY%'
-  SELF_SERVICE_DESCRIPTION: ‘Create and configure lightweight, reproducible, and portable development environments.’
+  SELF_SERVICE_DESCRIPTION: 'Create and configure lightweight, reproducible, and portable development environments.'
   SELF_SERVICE_DISPLAY_NAME: '%NAME%'
   SELF_SERVICE_ICON: '%NAME%.png'
   SELF_SERVICE_INSTALL_BUTTON: Install
   SELF_SERVICE_REINSTALL_BUTTON: Install
-  SOFTWARE_TITLE: '%NAME%'''
+  SOFTWARE_TITLE: '%NAME%'
   UPDATE_PREDICATE: pkg_uploaded == False
 
 
