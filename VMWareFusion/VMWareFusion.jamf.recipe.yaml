@@ -29,7 +29,9 @@ Input:
   SELF_SERVICE_INSTALL_BUTTON: Install
   SELF_SERVICE_REINSTALL_BUTTON: Install
   SOFTWARE_TITLE: '%NAME%'
+  REPLACE_GROUP: 'true'
   UPDATE_PREDICATE: pkg_uploaded == False
+
 
 
 ParentRecipe: com.justinrummel.pkg.VMwareFusion
