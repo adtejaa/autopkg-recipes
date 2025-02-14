@@ -5,16 +5,16 @@ MinimumVersion: '2.3'
 Input:
   BYPASS_STOP_PROCESSING_IF_DOWNLOAD_UNCHANGED: null
   DOWNLOAD_MISSING_FILE: null
-  GROUP_NAME: "%NAME%"
+  GROUP_NAME: "com.vmware.fusion"
   GROUP_TEMPLATE: "JamfPolicyTemplate_allcomputers.xml"
   NAME: 'VMwareFusion'
-  SOFTWARE_TITLE: '%NAME%'
+  SOFTWARE_TITLE: 'VMwareFusion'
   CATEGORY: Apps
   POLICY_CATEGORY: Apps
   PACKAGE_INFO: autopkg
   POLICY_CATEGORY: '%CATEGORY%'
   POLICY_CUSTOM_TRIGGER: install-%NAME%
-  POLICY_NAME: '%NAME%'
+  POLICY_NAME: 'VMwareFusion'
   POLICY_RUN_COMMAND: ' '
   POLICY_RUN_RECON: 'false'
   POLICY_TEMPLATE: JamfPolicyTemplate_allusers.xml
@@ -24,14 +24,14 @@ Input:
   SELF_SERVICE_AVAILABLE: 'true'
   SELF_SERVICE_CATEGORY: '%CATEGORY%'
   SELF_SERVICE_DESCRIPTION: 'VMware Fusion allows users to run Windows, Linux, and other operating systems on macOS without rebooting.'
-  SELF_SERVICE_DISPLAY_NAME: '%NAME%'
-  SELF_SERVICE_ICON: '%NAME%.png'
+  SELF_SERVICE_DISPLAY_NAME: 'VMwareFusion'
+  SELF_SERVICE_ICON: 'VMwareFusion.png'
   SELF_SERVICE_INSTALL_BUTTON: Install
   SELF_SERVICE_REINSTALL_BUTTON: Install
-  SOFTWARE_TITLE: '%NAME%'
   REPLACE_GROUP: 'true'
+  
   UPDATE_PREDICATE: pkg_uploaded == False
-
+  
 
 
 ParentRecipe: com.justinrummel.pkg.VMwareFusion
@@ -49,7 +49,7 @@ Process:
     Arguments:
       computergroup_name: '%GROUP_NAME%'
       computergroup_template: '%GROUP_TEMPLATE%'
-      pkg_name: '%NAME%'
+      pkg_name: "VMwareFusion"
       replace_group: '%REPLACE_GROUP%'
 
   # 🟢 3. Upload Package
