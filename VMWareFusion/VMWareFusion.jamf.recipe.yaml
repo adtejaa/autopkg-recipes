@@ -5,8 +5,8 @@ MinimumVersion: '2.3'
 Input:
   BYPASS_STOP_PROCESSING_IF_DOWNLOAD_UNCHANGED: null
   DOWNLOAD_MISSING_FILE: null
-  GROUP_NAME: "com.vmware.fusion"
-  GROUP_TEMPLATE: "JamfPolicyTemplate_allcomputers.xml"
+  GROUP_NAME: "VMwareFusion"
+  GROUP_TEMPLATE: JamfSmartGroupTemplate.xml
   NAME: 'VMwareFusion'
   SOFTWARE_TITLE: 'VMwareFusion'
   CATEGORY: Apps
@@ -17,7 +17,7 @@ Input:
   POLICY_NAME: 'VMwareFusion'
   POLICY_RUN_COMMAND: ' '
   POLICY_RUN_RECON: 'false'
-  POLICY_TEMPLATE: JamfPolicyTemplate_allusers.xml
+  POLICY_TEMPLATE: JamfPolicyTemplate_allcomputers.xml
   REMOVE_OLD_PACKAGES: 'true'
   REPLACE_CATEGORY: 'true'
   REPLACE_POLICY: 'true'
