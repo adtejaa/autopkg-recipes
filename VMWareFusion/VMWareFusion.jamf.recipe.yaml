@@ -6,7 +6,7 @@ Input:
   BYPASS_STOP_PROCESSING_IF_DOWNLOAD_UNCHANGED: null
   DOWNLOAD_MISSING_FILE: null
   GROUP_NAME: "%NAME%"
-  GROUP_TEMPLATE: "JamfSmartGroupTemplate.xml"
+  GROUP_TEMPLATE: "JamfPolicyTemplate_allcomputers.xml"
   NAME: 'VMwareFusion'
   SOFTWARE_TITLE: '%NAME%'
   CATEGORY: Apps
