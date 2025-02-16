@@ -1,6 +1,6 @@
 
 Description: Downloads the latest version Vagrant Manager, packages it, then uploads it to Jamf.
-Identifier: com.github.adtejaa.jamf.Omnissa Horizon Client
+Identifier: com.github.adtejaa.jamf.OmnissaHorizonClient
 MinimumVersion: '2.3'
 
 Input:
