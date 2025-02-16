@@ -50,7 +50,6 @@ Process:
     Arguments:
       computergroup_name: '%GROUP_NAME%'
       computergroup_template: '%GROUP_TEMPLATE%'
-      pkg_name: "com.vmware.fusion"
       replace_group: '%REPLACE_GROUP%'
 
   # 🟢 3. Upload Package
@@ -58,7 +57,6 @@ Process:
     Arguments:
       pkg_category: '%CATEGORY%'
       pkg_info: '%PACKAGE_INFO%'
-      pkg_name: 'VMWare Fusion-%version%.pkg' 
 
   # 🟢 4. Upload Policy **After Group Exists**
   - Processor: com.github.grahampugh.jamf-upload.processors/JamfPolicyUploader
