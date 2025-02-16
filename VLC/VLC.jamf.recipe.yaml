@@ -1,0 +1,94 @@
+Identifier: com.github.adtejaa.jamf.VLC
+Input:
+  ARCHITECTURE: universal
+  CATEGORY: Media
+  GROUP_NAME: VLC-update-smart
+  GROUP_TEMPLATE: JamfSmartGroupTemplate.xml
+  NAME: VLC
+  SOFTWARE_TITLE: '%NAME%'
+  POLICY_CATEGORY: %CATEGORY%
+  POLICY_NAME: '%NAME%'
+  POLICY_RUN_COMMAND: ' '
+  POLICY_CUSTOM_TRIGGER: 'install-%NAME%'
+  POLICY_SCOPE_ALL_COMPUTERS: 'true'
+  POLICY_TEMPLATE: JamfPolicyTemplate.xml
+  REMOVE_OLD_PACKAGES: 'true'
+  SELF_SERVICE_AVAILABLE: 'true'
+  SELF_SERVICE_CATEGORY: '%CATEGORY%'
+  SELF_SERVICE_DESCRIPTION: "Install the latest version of VLC."
+  SELF_SERVICE_DISPLAY_NAME: "%NAME%"
+  SELF_SERVICE_INSTALL_BUTTON: Install
+  SELF_SERVICE_REINSTALL_BUTTON: Install
+  SELF_SERVICE_ICON: "%NAME%.png"
+  REPLACE_POLICY: 'true'
+  PACKAGE_INFO: 'autopkg'
+  GROUP_NAME: '%NAME%'
+  GROUP_TEMPLATE: "JamfSmartGroupTemplate.xml"
+  REPLACE_GROUP: 'true'
+  UPDATE_PREDICATE: 'pkg_uploaded == False'
+  REPLACE_CATEGORY: 'true'
+
+
+ParentRecipe: com.github.autopkg.grahampugh-recipes.jamf.VLC
+ParentRecipeTrustInfo:
+
+  parent_recipes:
+    com.github.autopkg.download.VLC:
+      git_hash: 1b4ba2cfe6d1f6de304bc9c29b57df6602b2e7e6
+      path: ~/Library/AutoPkg/RecipeRepos/com.github.autopkg.recipes/VLC/VLC.download.recipe
+      sha256_hash: e74a96c65488d34aabb247c171b57db7fed8afd67b61fffdce8f46bc54d35f18
+    com.github.autopkg.grahampugh-recipes.jamf.VLC:
+      git_hash: a802b4b5c78a6b87e39db23ab31f34978dcf9772
+      path: ~/Library/AutoPkg/RecipeRepos/com.github.autopkg.grahampugh-recipes/Jamf_Recipes/VLC.jamf.recipe
+      sha256_hash: eb846a083e8f49cc462785b7fcc850b3464fc1ef81cb96505d6d9bfebcad176a
+    com.github.autopkg.pkg.VLC:
+      git_hash: fe5ced1ce7f937d31dc3fb9a8a27e1fa5b2b8961
+      path: ~/Library/AutoPkg/RecipeRepos/com.github.autopkg.recipes/VLC/VLC.pkg.recipe
+      sha256_hash: 845212cea5957bb44996f70acba03fb278e8d8d81d68edabb94d64946e734f25
+
+
+Process:
+  # 🟢 1. Ensure Category Exists Before Upload
+  - Processor: com.github.grahampugh.jamf-upload.processors/JamfCategoryUploader
+    Arguments:
+      category_name: '%CATEGORY%'
+      replace_category: '%REPLACE_CATEGORY%'
+
+  # 🟢 2. Ensure Computer Group Exists **Before Policy Upload**
+  - Processor: com.github.grahampugh.jamf-upload.processors/JamfComputerGroupUploader
+    Arguments:
+      computergroup_name: '%GROUP_NAME%'
+      computergroup_template: '%GROUP_TEMPLATE%'
+      replace_group: '%REPLACE_GROUP%'
+
+  # 🟢 3. Upload Package
+  - Processor: com.github.grahampugh.jamf-upload.processors/JamfPackageUploader
+    Arguments:
+      pkg_category: '%CATEGORY%'
+      pkg_info: '%PACKAGE_INFO%'
+
+  # 🟢 4. Upload Policy **After Group Exists**
+  - Processor: com.github.grahampugh.jamf-upload.processors/JamfPolicyUploader
+    Arguments:
+      policy_template: '%POLICY_TEMPLATE%'
+      policy_name: '%POLICY_NAME%'
+      icon: '%SELF_SERVICE_ICON%'
+      replace_policy: '%REPLACE_POLICY%'
+
+  # 🟢 5. Log Last Recipe Run Result
+  - Processor: com.github.grahampugh.recipes.postprocessors/LastRecipeRunResult
+
+  # 🟢 6. Remove Old Packages (Only If Necessary)
+  - Processor: StopProcessingIf
+    Arguments:
+      predicate: '%REMOVE_OLD_PACKAGES% == false'
+
+  - Processor: com.github.grahampugh.jamf-upload.processors/JamfPackageCleaner
+    Arguments:
+      pkg_name_match: '%SOFTWARE_TITLE%-'
+      versions_to_keep: 2
+
+  # 🟢 7. Final Stop Processing Check
+  - Processor: StopProcessingIf
+    Arguments:
+      predicate: pkg_uploaded == False
