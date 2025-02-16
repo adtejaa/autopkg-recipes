@@ -57,7 +57,7 @@ Process:
     Arguments:
       pkg_category: '%CATEGORY%'
       pkg_info: '%PACKAGE_INFO%'
-      pkg_name: '%NAME%-%VERSION%.pkg' 
+      pkg_name: 'VMWare Fusion-%version%.pkg' 
 
   # 🟢 4. Upload Policy **After Group Exists**
   - Processor: com.github.grahampugh.jamf-upload.processors/JamfPolicyUploader
