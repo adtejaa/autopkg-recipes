@@ -1,0 +1,94 @@
+Identifier: com.github.jamf.HandBrake
+Input:
+  BYPASS_STOP_PROCESSING_IF_DOWNLOAD_UNCHANGED: null
+  DOWNLOAD_MISSING_FILE: null
+  CATEGORY: 'Digital Media'
+  GROUP_NAME: HandBrake-update-smart
+  GROUP_TEMPLATE: JamfSmartGroupTemplate.xml
+  NAME: HandBrake
+  SOFTWARE_TITLE: '%NAME%'
+  POLICY_CATEGORY: '%CATEGORY%'
+  PACKAGE_INFO: autopkg
+  POLICY_NAME: '%NAME%'
+  POLICY_CUSTOM_TRIGGER: install-%NAME%
+  POLICY_RUN_COMMAND: ' '
+  POLICY_RUN_RECON: 'false'
+  POLICY_TEMPLATE: JamfPolicyTemplate.xml
+  POLICY_TEMPLATE: JamfPolicyTemplate_allcomputers.xml
+  REMOVE_OLD_PACKAGES: 'true'
+  REPLACE_CATEGORY: 'true'
+  REPLACE_POLICY: 'true'
+  SELF_SERVICE_AVAILABLE: 'true'
+  SELF_SERVICE_CATEGORY: '%CATEGORY%'
+  SELF_SERVICE_DESCRIPTION: "HandBrake is a tool for converting video from nearly any format to a selection of modern, widely supported codecs."
+  SELF_SERVICE_DISPLAY_NAME: Install Latest %NAME%
+  SELF_SERVICE_ICON: "%NAME%.png"
+  SELF_SERVICE_INSTALL_BUTTON: Install
+  SELF_SERVICE_REINSTALL_BUTTON: Install
+  UPDATE_PREDICATE: pkg_uploaded == False
+
+
+
+ParentRecipe: com.github.autopkg.grahampugh-recipes.jamf.HandBrake
+ParentRecipeTrustInfo:  
+
+  parent_recipes:
+    com.github.autopkg.download.Handbrake:
+      git_hash: 93d8f9c58313e2462659267a1ba53a22d36d7fa9
+      path: ~/Library/AutoPkg/RecipeRepos/com.github.autopkg.recipes/Handbrake/Handbrake.download.recipe
+      sha256_hash: c40d4e8024807e981269ed2725feb1a24030292fcad57aa089b92ef3e442d603
+    com.github.autopkg.grahampugh-recipes.jamf.HandBrake:
+      git_hash: a802b4b5c78a6b87e39db23ab31f34978dcf9772
+      path: ~/Library/AutoPkg/RecipeRepos/com.github.autopkg.grahampugh-recipes/Jamf_Recipes/HandBrake.jamf.recipe
+      sha256_hash: d77df90a80a9ad8e971c2e0577fa4fd1efd6024e1b76c3dfe211688c4552e0c5
+    com.github.autopkg.pkg.Handbrake:
+      git_hash: f29f399c54adee7122e9fdc3c1ea7ed4c67388a4
+      path: ~/Library/AutoPkg/RecipeRepos/com.github.autopkg.recipes/Handbrake/Handbrake.pkg.recipe
+      sha256_hash: 9aebd03b9dc256d2c2807b49b9735febc2c6b4729c4a1d0c02b3be3111974a61
+
+
+Process:
+  # 🟢 1. Ensure Category Exists Before Upload
+  - Processor: com.github.grahampugh.jamf-upload.processors/JamfCategoryUploader
+    Arguments:
+      category_name: '%CATEGORY%'
+      replace_category: '%REPLACE_CATEGORY%'
+
+  # 🟢 2. Ensure Computer Group Exists **Before Policy Upload**
+  - Processor: com.github.grahampugh.jamf-upload.processors/JamfComputerGroupUploader
+    Arguments:
+      computergroup_name: '%GROUP_NAME%'
+      computergroup_template: '%GROUP_TEMPLATE%'
+      replace_group: '%REPLACE_GROUP%'
+
+  # 🟢 3. Upload Package
+  - Processor: com.github.grahampugh.jamf-upload.processors/JamfPackageUploader
+    Arguments:
+      pkg_category: '%CATEGORY%'
+      pkg_info: '%PACKAGE_INFO%'
+
+  # 🟢 4. Upload Policy **After Group Exists**
+  - Processor: com.github.grahampugh.jamf-upload.processors/JamfPolicyUploader
+    Arguments:
+      policy_template: '%POLICY_TEMPLATE%'
+      policy_name: '%POLICY_NAME%'
+      icon: '%SELF_SERVICE_ICON%'
+      replace_policy: '%REPLACE_POLICY%'
+
+  # 🟢 5. Log Last Recipe Run Result
+  - Processor: com.github.grahampugh.recipes.postprocessors/LastRecipeRunResult
+
+  # 🟢 6. Remove Old Packages (Only If Necessary)
+  - Processor: StopProcessingIf
+    Arguments:
+      predicate: '%REMOVE_OLD_PACKAGES% == false'
+
+  - Processor: com.github.grahampugh.jamf-upload.processors/JamfPackageCleaner
+    Arguments:
+      pkg_name_match: '%SOFTWARE_TITLE%-'
+      versions_to_keep: 2
+
+  # 🟢 7. Final Stop Processing Check
+  - Processor: StopProcessingIf
+    Arguments:
+      predicate: pkg_uploaded == False
