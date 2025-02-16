@@ -8,7 +8,7 @@ Input:
   DOWNLOAD_MISSING_FILE: null
   GROUP_NAME: "Omnissa Horizon Client"
   GROUP_TEMPLATE: JamfSmartGroupTemplate.xml
-  NAME: 'VMWare Fusion'
+  NAME: 'Omnissa Horizon Client'
   SOFTWARE_TITLE: 'Omnissa Horizon Client'
   CATEGORY: Apps
   POLICY_CATEGORY: Apps
@@ -24,7 +24,7 @@ Input:
   REPLACE_POLICY: 'true'
   SELF_SERVICE_AVAILABLE: 'true'
   SELF_SERVICE_CATEGORY: '%CATEGORY%'
-  SELF_SERVICE_DESCRIPTION: 'VMware Fusion allows users to run Windows, Linux, and other operating systems on macOS without rebooting.'
+  SELF_SERVICE_DESCRIPTION: 'Omnissa Horizon Client enables secure and seamless access to virtual desktops and applications from any device.'
   SELF_SERVICE_DISPLAY_NAME: 'Omnissa Horizon Client'
   SELF_SERVICE_ICON: 'OmnissaHorizonClient.png'
   SELF_SERVICE_INSTALL_BUTTON: Install
