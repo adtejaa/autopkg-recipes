@@ -13,7 +13,6 @@ Input:
   POLICY_CUSTOM_TRIGGER: install-%NAME%
   POLICY_RUN_COMMAND: ' '
   POLICY_RUN_RECON: 'false'
-  POLICY_TEMPLATE: JamfPolicyTemplate.xml
   POLICY_TEMPLATE: JamfPolicyTemplate_allcomputers.xml
   REMOVE_OLD_PACKAGES: 'true'
   REPLACE_CATEGORY: 'true'
@@ -26,7 +25,6 @@ Input:
   SELF_SERVICE_INSTALL_BUTTON: Install
   SELF_SERVICE_REINSTALL_BUTTON: Install
   UPDATE_PREDICATE: pkg_uploaded == False
-
 
 
 ParentRecipe: com.github.autopkg.grahampugh-recipes.jamf.HandBrake
