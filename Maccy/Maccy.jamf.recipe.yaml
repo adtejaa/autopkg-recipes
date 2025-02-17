@@ -51,6 +51,7 @@ Process:
     Arguments:
       pkg_category: '%CATEGORY%'
       pkg_info: '%PACKAGE_INFO%'
+      pkg_name: '%NAME%-%version%.pkg' 
 
   - Processor: com.github.grahampugh.jamf-upload.processors/JamfPolicyUploader
     Arguments:
