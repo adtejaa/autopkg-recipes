@@ -32,7 +32,7 @@ Input:
 
 
 
-ParentRecipe: com.github.rtrouton.download.Maccy
+ParentRecipe: com.github.rtrouton.pkg.Maccy
 ParentRecipeTrustInfo:
 
 Process:
