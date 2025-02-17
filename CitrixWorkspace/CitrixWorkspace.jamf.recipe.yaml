@@ -2,9 +2,8 @@ Identifier: com.github.adtejaa.jamf.CitrixWorkspace
 Input:
   CATEGORY: Apps
   NAME: Citrix Workspace
-  PKG_CATEGORY: "%CATEGORY%"
   SOFTWARE_TITLE: Workspace
-  POLICY_CATEGORY: %CATEGORY%
+  POLICY_CATEGORY: "%CATEGORY%"
   POLICY_NAME: '%NAME%'
   POLICY_RUN_COMMAND: ' '
   POLICY_CUSTOM_TRIGGER: 'install-%NAME%'
