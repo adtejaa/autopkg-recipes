@@ -28,11 +28,11 @@ Input:
   UPDATE_PREDICATE: 'pkg_uploaded == False'
   REPLACE_CATEGORY: 'true'
 
-  ParentRecipe: com.github.michalmmac.pkg.MacPass
-  ParentRecipeTrustInfo:
+ParentRecipe: com.github.michalmmac.pkg.MacPass
+ParentRecipeTrustInfo:
 
 
-  Process:
+Process:
   - Processor: "com.github.grahampugh.jamf-upload.processors/JamfCategoryUploader"
     Arguments:
       category_name: "%CATEGORY%"
