@@ -1,7 +1,7 @@
 Identifier: com.github.adtejaa.jamf.CitrixWorkspace
 Input:
   CATEGORY: Apps
-  NAME: Citrix Workspace
+  NAME: 'Citrix Workspace'
   SOFTWARE_TITLE: Workspace
   POLICY_CATEGORY: "%CATEGORY%"
   POLICY_NAME: '%NAME%'
