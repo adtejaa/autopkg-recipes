@@ -1,4 +1,4 @@
-Identifier: com.github.jamf.FileZilla
+Identifier: com.github.adtejaa.jamf.FileZilla
 Input:
   NAME: 'FileZilla'
   SOFTWARE_TITLE: 'FileZilla'
