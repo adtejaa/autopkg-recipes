@@ -16,7 +16,7 @@ Input:
   SELF_SERVICE_AVAILABLE: 'true'
   SELF_SERVICE_CATEGORY: '%CATEGORY%'
   SELF_SERVICE_DESCRIPTION: |
-    The IDE that makes development a more productive and enjoyable experience
+    A lightweight clipboard manager for macOS that keeps your clipboard history accessible and searchable for quick pasting.
   SELF_SERVICE_DISPLAY_NAME: '%NAME%'
   SELF_SERVICE_ICON: '%SOFTWARE_TITLE%.png'
   SELF_SERVICE_INSTALL_BUTTON: Install
