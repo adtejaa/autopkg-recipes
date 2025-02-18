@@ -13,20 +13,25 @@ Process:
       destination_path: "%RECIPE_CACHE_DIR%/unpacked"
       purge_destination: true
 
+  - Processor: "PkgExtractor"
+    Arguments:
+      pkg_path: "%RECIPE_CACHE_DIR%/unpacked/Stream_Deck.pkg"
+      extract_root: "%RECIPE_CACHE_DIR%/streamdeck"
+      purge_destination: true
+
   - Processor: "PkgPayloadUnpacker"
     Arguments:
-      pkg_path: "%RECIPE_CACHE_DIR%/unpacked/*.pkg"
+      pkg_payload_path: "%RECIPE_CACHE_DIR%/streamdeck/Payload"
       destination_path: "%RECIPE_CACHE_DIR%/payload"
       purge_destination: true
 
-  - Processor: "FileFinder"
-    Arguments:
-      find_method: "glob"
-      pattern: "%RECIPE_CACHE_DIR%/payload/Applications/Elgato Stream Deck.app/Contents/Info.plist"
-      result_output_var_name: info_plist_path
-
   - Processor: "PlistReader"
     Arguments:
-      info_path: "%info_plist_path%"
+      info_path: "%RECIPE_CACHE_DIR%/payload/Applications/Elgato Stream Deck.app/Contents/Info.plist"
       plist_keys:
         CFBundleShortVersionString: version
+
+  - Processor: "PkgCopier"
+    Arguments:
+      pkg_path: "%RECIPE_CACHE_DIR%/ElgatoStreamDeck-%version%.pkg"
+      source_pkg: "%RECIPE_CACHE_DIR%/downloads/ElgatoStreamDeck.pkg"
