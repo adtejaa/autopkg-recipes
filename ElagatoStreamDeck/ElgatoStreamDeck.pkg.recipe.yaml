@@ -15,7 +15,7 @@ Process:
   - Processor: "PkgExtractor"
     Arguments:
       pkg_path: "%pathname%"
-      destination_path: "%pkgroot%/Applications/"
+      extract_root: "%pkgroot%/Applications/"
 
   - Processor: "PlistReader"
     Arguments:
