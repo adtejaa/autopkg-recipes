@@ -12,19 +12,27 @@ Process:
       pkgdirs:
         Applications: "0775"
 
-  - Processor: "PkgCopier"
+  - Processor: "PkgPayloadUnpacker"
     Arguments:
-      pkg_path: "%RECIPE_CACHE_DIR%/%NAME%.pkg"
-      source_pkg: "%pathname%"
+      pkg_path: "%pathname%"
+      destination_path: "%RECIPE_CACHE_DIR%/%NAME%/Extracted"
+
+  - Processor: "PlistReader"
+    Arguments:
+      info_path: "%RECIPE_CACHE_DIR%/%NAME%/Extracted/Applications/Elgato Stream Deck.app/Contents/Info.plist"
+      plist_keys:
+        CFBundleShortVersionString: version
+        CFBundleIdentifier: bundleid
+        CFBundleName: app_name
 
   - Processor: "PkgCreator"
     Arguments:
       force_pkg_build: true
       pkg_request:
         pkgroot: "%pkgroot%"
-        pkgname: "%NAME%"
-        id: "com.elgato.streamdeck"
-        version: "1.0"
+        pkgname: "%NAME%-%version%"
+        id: "%bundleid%"
+        version: "%version%"
         options: purge_ds_store
         chown:
           - path: "Applications"
