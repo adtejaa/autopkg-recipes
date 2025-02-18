@@ -7,28 +7,34 @@ MinimumVersion: "2.3.0"
 ParentRecipe: "com.github.dataJAR-recipes.download.Elgato Stream Deck"
 
 Process:
-  - Processor: "PkgExtractor"
+  - Processor: "FlatPkgUnpacker"
     Arguments:
-      pkg_path: "%RECIPE_CACHE_DIR%/downloads/ElgatoStreamDeck.pkg"
-      extract_root: "%RECIPE_CACHE_DIR%/unpacked"
+      flat_pkg_path: "%RECIPE_CACHE_DIR%/downloads/ElgatoStreamDeck.pkg"
+      destination_path: "%RECIPE_CACHE_DIR%/unpacked"
+      purge_destination: true
 
   - Processor: "FileFinder"
     Arguments:
       find_method: "glob"
-      pattern: "%RECIPE_CACHE_DIR%/unpacked/Applications/Stream Deck.app/Contents/Info.plist"
-      result_output_var_name: info_plist_path
+      pattern: "%RECIPE_CACHE_DIR%/unpacked/Distribution"
+      result_output_var_name: distribution_path
 
-  - Processor: "PlistReader"
+  - Processor: "VersionExtractor"
     Arguments:
-      info_path: "%info_plist_path%"
-      plist_keys:
-        CFBundleShortVersionString: version
+      file_path: "%distribution_path%"
+      regex_pattern: "(?<=CFBundleShortVersionString=\\\")[^"]+"
+      result_output_var_name: version
+
+  - Processor: "PkgRenamer"
+    Arguments:
+      source_path: "%RECIPE_CACHE_DIR%/downloads/ElgatoStreamDeck.pkg"
+      destination_path: "%RECIPE_CACHE_DIR%/downloads/ElgatoStreamDeck-%version%.pkg"
 
   - Processor: "PkgCreator"
     Arguments:
       force_pkg_build: true
       pkg_request:
-        pkgroot: "%RECIPE_CACHE_DIR%/unpacked"
+        pkgroot: "%RECIPE_CACHE_DIR%/payload"
         pkgname: "ElgatoStreamDeck-%version%"
         id: "%BUNDLE_ID%"
         version: "%version%"
