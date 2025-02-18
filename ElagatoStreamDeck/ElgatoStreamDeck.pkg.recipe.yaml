@@ -13,14 +13,21 @@ Process:
       pkgdirs:
         Applications: "0775"
 
-  - Processor: "Copier"
+  - Processor: "PkgPayloadUnpacker"
     Arguments:
-      source_path: "%pathname%/Elgato Stream Deck.app"
-      destination_path: "%pkgroot%/Applications/Elgato Stream Deck.app"
+      pkg_path: "%pathname%"
+      destination_path: "%RECIPE_CACHE_DIR%/payload"
+      purge_destination: true
+
+  - Processor: "FileFinder"
+    Arguments:
+      find_method: "glob"
+      pattern: "%RECIPE_CACHE_DIR%/payload/Applications/Elgato Stream Deck.app/Contents/Info.plist"
+      result_output_var_name: info_plist_path
 
   - Processor: "PlistReader"
     Arguments:
-      info_path: "%pkgroot%/Applications/Elgato Stream Deck.app/Contents/Info.plist"
+      info_path: "%info_plist_path%"
       plist_keys:
         CFBundleShortVersionString: version
 
