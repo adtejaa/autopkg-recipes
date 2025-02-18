@@ -9,7 +9,7 @@ ParentRecipe: "com.github.dataJAR-recipes.download.Elgato Stream Deck"
 Process:
   - Processor: "FlatPkgUnpacker"
     Arguments:
-      flat_pkg_path: "%pathname%"
+      flat_pkg_path: "%RECIPE_CACHE_DIR%/downloads/ElgatoStreamDeck.pkg"
       destination_path: "%RECIPE_CACHE_DIR%/unpacked"
       purge_destination: true
 
@@ -18,3 +18,15 @@ Process:
       pkg_path: "%RECIPE_CACHE_DIR%/unpacked/*.pkg"
       destination_path: "%RECIPE_CACHE_DIR%/payload"
       purge_destination: true
+
+  - Processor: "FileFinder"
+    Arguments:
+      find_method: "glob"
+      pattern: "%RECIPE_CACHE_DIR%/payload/Applications/Elgato Stream Deck.app/Contents/Info.plist"
+      result_output_var_name: info_plist_path
+
+  - Processor: "PlistReader"
+    Arguments:
+      info_path: "%info_plist_path%"
+      plist_keys:
+        CFBundleShortVersionString: version
