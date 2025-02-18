@@ -37,6 +37,14 @@ Process:
       plist_keys:
         CFBundleShortVersionString: version
 
+  - Processor: "PkgInfoCreator"
+    Arguments:
+      template_path: "%RECIPE_CACHE_DIR%/Template.plist"
+      version: "%version%"
+      pkgroot: "%pkgroot%"
+      infofile: "%pkgroot%/PackageInfo"
+      pkgtype: "flat"
+
   - Processor: "PkgCreator"
     Arguments:
       force_pkg_build: true
