@@ -1,4 +1,4 @@
-Description: Create a package from the Elagato StreamDeck  download.
+Description: Create a package from the Elgato StreamDeck download.
 Identifier: "com.github.adtejaa.pkg.ElgatoStreamDeck"
 Input:
   NAME: "ElgatoStreamDeck"
@@ -12,7 +12,6 @@ Process:
       pkgdirs:
         Applications: "0775"
 
-  Process:
   - Processor: "PkgCopier"
     Arguments:
       pkg_path: "%RECIPE_CACHE_DIR%/%NAME%-%version%.pkg"
