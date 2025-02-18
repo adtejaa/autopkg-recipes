@@ -15,11 +15,11 @@ Process:
   - Processor: "PkgPayloadUnpacker"
     Arguments:
       pkg_path: "%pathname%"
-      destination_path: "%RECIPE_CACHE_DIR%/%NAME%/Extracted"
+      destination_path: "%RECIPE_CACHE_DIR%/%NAME%"
 
   - Processor: "PlistReader"
     Arguments:
-      info_path: "%RECIPE_CACHE_DIR%/%NAME%/Extracted/Applications/Elgato Stream Deck.app/Contents/Info.plist"
+      info_path: "%RECIPE_CACHE_DIR%/%NAME%/Applications/Elgato Stream Deck.app/Contents/Info.plist"
       plist_keys:
         CFBundleShortVersionString: version
         CFBundleIdentifier: bundleid
