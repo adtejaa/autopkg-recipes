@@ -1,0 +1,72 @@
+
+Identifier: com.github.adtejaa.jamf.ElgatoStreamDeck
+Input:
+  NAME: 'Elgato Stream Deck'
+  SOFTWARE_TITLE: 'Elgato Stream Deck'
+  CATEGORY: Apps
+  POLICY_CATEGORY: '%CATEGORY%'
+  POLICY_NAME: '%NAME%'
+  POLICY_RUN_COMMAND: ' '
+  POLICY_CUSTOM_TRIGGER: 'install-%NAME%'
+  POLICY_RUN_RECON: 'false'
+  POLICY_SCOPE_ALL_COMPUTERS: 'true'
+  POLICY_TEMPLATE: JamfPolicyTemplate_allcomputers.xml
+  REMOVE_OLD_PACKAGES: 'true'
+  SELF_SERVICE_AVAILABLE: 'true'
+  SELF_SERVICE_CATEGORY: '%CATEGORY%'
+  SELF_SERVICE_DESCRIPTION: |
+    Elgato Stream Deck enhances your workflow with customizable keys for seamless control of apps, streaming, and productivity tools.
+  SELF_SERVICE_DISPLAY_NAME: '%NAME%'
+  SELF_SERVICE_ICON: '%SOFTWARE_TITLE%.png'
+  SELF_SERVICE_INSTALL_BUTTON: Install
+  SELF_SERVICE_REINSTALL_BUTTON: Install
+  REPLACE_POLICY: 'true'
+  PACKAGE_INFO: 'autopkg'
+  GROUP_NAME: '%NAME%'
+  GROUP_TEMPLATE: "JamfSmartGroupTemplate.xml"
+  REPLACE_GROUP: 'true'
+  UPDATE_PREDICATE: 'pkg_uploaded == False'
+  REPLACE_CATEGORY: 'true'
+
+ParentRecipe: com.github.adtejaa.pkg.ElgatoStreamDeck
+ParentRecipeTrustInfo:
+
+
+Process:
+  - Processor: "com.github.grahampugh.jamf-upload.processors/JamfCategoryUploader"
+    Arguments:
+      category_name: "%CATEGORY%"
+      replace_category: "%REPLACE_CATEGORY%"
+
+  - Processor: "com.github.grahampugh.jamf-upload.processors/JamfComputerGroupUploader"
+    Arguments:
+      computergroup_name: "%GROUP_NAME%"
+      computergroup_template: "%GROUP_TEMPLATE%"
+      replace_group: "%REPLACE_GROUP%"
+
+  - Processor: "com.github.grahampugh.jamf-upload.processors/JamfPackageUploader"
+    Arguments:
+      pkg_category: "%CATEGORY%"
+      pkg_info: "%PACKAGE_INFO%"
+
+  - Processor: "com.github.grahampugh.jamf-upload.processors/JamfPolicyUploader"
+    Arguments:
+      policy_template: "%POLICY_TEMPLATE%"
+      policy_name: "%POLICY_NAME%"
+      icon: "%SELF_SERVICE_ICON%"
+      replace_policy: "%REPLACE_POLICY%"
+
+  - Processor: "com.github.grahampugh.recipes.postprocessors/LastRecipeRunResult"
+
+  - Processor: "StopProcessingIf"
+    Arguments:
+      predicate: "%REMOVE_OLD_PACKAGES% == false"
+
+  - Processor: "com.github.grahampugh.jamf-upload.processors/JamfPackageCleaner"
+    Arguments:
+      pkg_name_match: "%SOFTWARE_TITLE%-"
+      versions_to_keep: 2
+
+  - Processor: "StopProcessingIf"
+    Arguments:
+      predicate: "pkg_uploaded == False"
