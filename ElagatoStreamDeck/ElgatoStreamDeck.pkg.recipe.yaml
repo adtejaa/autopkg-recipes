@@ -7,10 +7,11 @@ MinimumVersion: "2.3.0"
 ParentRecipe: "com.github.dataJAR-recipes.download.Elgato Stream Deck"
 
 Process:
-  - Processor: "PkgExtractor"
+  - Processor: "FlatPkgUnpacker"
     Arguments:
-      pkg_path: "%RECIPE_CACHE_DIR%/downloads/ElgatoStreamDeck.pkg"
-      extract_root: "%RECIPE_CACHE_DIR%/extracted"
+      flat_pkg_path: "%RECIPE_CACHE_DIR%/downloads/ElgatoStreamDeck.pkg"
+      destination_path: "%RECIPE_CACHE_DIR%/extracted"
+      purge_destination: true
 
   - Processor: "PkgExtractor"
     Arguments:
@@ -19,7 +20,7 @@ Process:
 
   - Processor: "PlistReader"
     Arguments:
-      info_path: "%RECIPE_CACHE_DIR%/payload/Applications/Stream Deck.app/Contents/Info.plist"
+      info_path: "%RECIPE_CACHE_DIR%/payload/Stream Deck.app/Contents/Info.plist"
       plist_keys:
         CFBundleShortVersionString: version
 
