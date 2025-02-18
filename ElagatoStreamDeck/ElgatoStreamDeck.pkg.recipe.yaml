@@ -10,21 +10,36 @@ Process:
   - Processor: "FlatPkgUnpacker"
     Arguments:
       flat_pkg_path: "%RECIPE_CACHE_DIR%/downloads/ElgatoStreamDeck.pkg"
-      destination_path: "%RECIPE_CACHE_DIR%/extracted"
+      destination_path: "%RECIPE_CACHE_DIR%/unpacked"
       purge_destination: true
 
   - Processor: "PkgExtractor"
     Arguments:
-      pkg_path: "%RECIPE_CACHE_DIR%/extracted/Stream_Deck.pkg"
+      pkg_path: "%RECIPE_CACHE_DIR%/unpacked/Stream_Deck.pkg"
       extract_root: "%RECIPE_CACHE_DIR%/payload"
+
+  - Processor: "FileFinder"
+    Arguments:
+      find_method: "glob"
+      pattern: "%RECIPE_CACHE_DIR%/payload/Applications/Stream Deck.app/Contents/Info.plist"
+      result_output_var_name: info_plist_path
 
   - Processor: "PlistReader"
     Arguments:
-      info_path: "%RECIPE_CACHE_DIR%/payload/Stream Deck.app/Contents/Info.plist"
+      info_path: "%info_plist_path%"
       plist_keys:
         CFBundleShortVersionString: version
 
-  - Processor: "PkgCopier"
+  - Processor: "PkgCreator"
     Arguments:
-      pkg_path: "%RECIPE_CACHE_DIR%/ElgatoStreamDeck-%version%.pkg"
-      source_pkg: "%RECIPE_CACHE_DIR%/downloads/ElgatoStreamDeck.pkg"
+      force_pkg_build: true
+      pkg_request:
+        pkgroot: "%RECIPE_CACHE_DIR%/payload"
+        pkgname: "ElgatoStreamDeck-%version%"
+        id: "%BUNDLE_ID%"
+        version: "%version%"
+        options: purge_ds_store
+        chown:
+          - path: "Applications"
+            user: "root"
+            group: "admin"
