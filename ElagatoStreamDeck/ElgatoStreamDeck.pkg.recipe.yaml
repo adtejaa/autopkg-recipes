@@ -7,10 +7,10 @@ MinimumVersion: "2.3.0"
 ParentRecipe: "com.github.dataJAR-recipes.download.Elgato Stream Deck"
 
 Process:
-  - Processor: "FlatPkgUnpacker"
+  - Processor: "PkgExtractor"
     Arguments:
-      flat_pkg_path: "%RECIPE_CACHE_DIR%/downloads/ElgatoStreamDeck.pkg"
-      destination_path: "%RECIPE_CACHE_DIR%/unpacked"
+      pkg_path: "%RECIPE_CACHE_DIR%/downloads/ElgatoStreamDeck.pkg"
+      extract_root: "%RECIPE_CACHE_DIR%/unpacked"
       purge_destination: true
 
   - Processor: "PkgExtractor"
