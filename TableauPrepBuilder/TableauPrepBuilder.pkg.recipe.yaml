@@ -1,37 +1,30 @@
-Description: Create a package from the Elgato StreamDeck download.
-Identifier: "com.github.adtejaa.pkg.ElgatoStreamDeck"
-Input:
-  BUNDLE_ID: "com.elgato.streamdeck"
-  NAME: "Elgato Stream Deck"
+Description: Downloads latest Tableau Prep disk image and makes a pkg.
+Identifier: com.github.adtejaa.pkg.tableau-prep
 MinimumVersion: "2.3.0"
-ParentRecipe: "com.github.dataJAR-recipes.download.Elgato Stream Deck"
+Input:
+  NAME: "TableauPrep"
+ParentRecipe: com.github.adtejaa.download.tableau-prep
 
 Process:
-  - Processor: "FlatPkgUnpacker"
+  - Processor: FlatPkgUnpacker
     Arguments:
-      flat_pkg_path: "%RECIPE_CACHE_DIR%/downloads/ElgatoStreamDeck.pkg"
-      destination_path: "%RECIPE_CACHE_DIR%/unpacked"
+      destination_path: "%RECIPE_CACHE_DIR%/unpack"
+      flat_pkg_path: "%pathname%/Tableau Prep Builder.pkg"
       purge_destination: true
 
-  - Processor: "FlatPkgUnpacker"
+  - Processor: PkgPayloadUnpacker
     Arguments:
-      flat_pkg_path: "%RECIPE_CACHE_DIR%/unpacked/Stream_Deck.pkg"
-      destination_path: "%RECIPE_CACHE_DIR%/streamdeck"
-      purge_destination: true
-
-  - Processor: "PkgPayloadUnpacker"
-    Arguments:
-      pkg_path: "%RECIPE_CACHE_DIR%/streamdeck/Stream_Deck.pkg/payload"
       destination_path: "%RECIPE_CACHE_DIR%/payload"
+      pkg_payload_path: "%RECIPE_CACHE_DIR%/unpack/Tableau App.pkg/payload"
       purge_destination: true
 
-  - Processor: "PlistReader"
+  - Processor: PlistReader
     Arguments:
-      info_path: "%RECIPE_CACHE_DIR%/payload/Applications/Elgato Stream Deck.app/Contents/Info.plist"
+      info_path: "%RECIPE_CACHE_DIR%/payload"
       plist_keys:
         CFBundleShortVersionString: version
 
-  - Processor: "PkgCopier"
+  - Processor: PkgCopier
     Arguments:
-      pkg_path: "%RECIPE_CACHE_DIR%/ElgatoStreamDeck-%version%.pkg"
-      source_pkg: "%RECIPE_CACHE_DIR%/downloads/ElgatoStreamDeck.pkg"
+      pkg_path: "%RECIPE_CACHE_DIR%/Tableau Prep-%version%.pkg"
+      source_pkg: "%pathname%/Tableau Prep Builder.pkg"
