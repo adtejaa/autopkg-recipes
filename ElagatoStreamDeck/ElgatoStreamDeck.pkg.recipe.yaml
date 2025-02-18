@@ -1,7 +1,8 @@
 Description: Create a package from the Elgato StreamDeck download.
 Identifier: "com.github.adtejaa.pkg.ElgatoStreamDeck"
 Input:
-  NAME: "ElgatoStreamDeck"
+  BUNDLE_ID: "com.elgato.streamdeck"
+  NAME: "Elgato Stream Deck"
 MinimumVersion: "2.3.0"
 ParentRecipe: "com.github.dataJAR-recipes.download.Elgato Stream Deck"
 
@@ -12,21 +13,14 @@ Process:
       pkgdirs:
         Applications: "0775"
 
-  - Processor: "PkgPayloadUnpacker"
+  - Processor: "Copier"
     Arguments:
-      pkg_path: "%pathname%"
-      destination_path: "%RECIPE_CACHE_DIR%/payload"
-      purge_destination: true
-
-  - Processor: "FileFinder"
-    Arguments:
-      find_method: "glob"
-      pattern: "%RECIPE_CACHE_DIR%/payload/Applications/Elgato Stream Deck.app/Contents/Info.plist"
-      result_output_var_name: info_plist_path
+      source_path: "%pathname%/Elgato Stream Deck.app"
+      destination_path: "%pkgroot%/Applications/Elgato Stream Deck.app"
 
   - Processor: "PlistReader"
     Arguments:
-      info_path: "%info_plist_path%"
+      info_path: "%pkgroot%/Applications/Elgato Stream Deck.app/Contents/Info.plist"
       plist_keys:
         CFBundleShortVersionString: version
 
@@ -36,7 +30,7 @@ Process:
       pkg_request:
         pkgroot: "%pkgroot%"
         pkgname: "%NAME%-%version%"
-        id: "com.elgato.streamdeck"
+        id: "%BUNDLE_ID%"
         version: "%version%"
         options: purge_ds_store
         chown:
