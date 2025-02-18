@@ -25,16 +25,4 @@ Process:
         CFBundleIdentifier: bundleid
         CFBundleName: app_name
 
-  - Processor: "PkgCreator"
-    Arguments:
-      force_pkg_build: true
-      pkg_request:
-        pkgroot: "%pkgroot%"
-        pkgname: "%NAME%-%version%"
-        id: "%bundleid%"
-        version: "%version%"
-        options: purge_ds_store
-        chown:
-          - path: "Applications"
-            user: "root"
-            group: "admin"
+ 
