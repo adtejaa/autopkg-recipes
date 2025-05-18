@@ -1,11 +1,10 @@
 ---
 Description: Downloads the latest version Tableau Prep Builder, packages it, then uploads it to Jamf.
-Identifier: com.github.adtejaa.jamf.tableau-prep
-ParentRecipe: com.github.adtejaa.pkg.tableau-prep
+Identifier: com.github.smithjw-actions.jamf.tableau-prep
+ParentRecipe: com.github.smithjw-actions.pkg.tableau-prep
 MinimumVersion: '2.3'
 
 Input:
-  BYPASS_STOP_PROCESSING_IF_DOWNLOAD_UNCHANGED: null
   DOWNLOAD_MISSING_FILE: null
   NAME: 'Tableau Prep Builder'
   SOFTWARE_TITLE: '%NAME%'
@@ -16,7 +15,7 @@ Input:
   POLICY_CUSTOM_TRIGGER: 'install-%NAME%'
   POLICY_RUN_RECON: 'false'
   POLICY_SCOPE_ALL_COMPUTERS: 'true'
-  POLICY_TEMPLATE: JamfPolicyTemplate.xml
+  POLICY_TEMPLATE: Policy_Template-Self_Service.xml
   REMOVE_OLD_PACKAGES: 'true'
   SELF_SERVICE_AVAILABLE: 'true'
   SELF_SERVICE_CATEGORY: '%CATEGORY%'

@@ -1,10 +1,10 @@
 
 escription: Create a package from the VagrantManager  download.
-Identifier: "com.github.adtejaa.pkg.VagrantManager"
+Identifier: "com.github.smithjw-actions.pkg.VagrantManager"
 Input:
   NAME: "Vagrant Manager"
 MinimumVersion: "2.3.0"
-ParentRecipe: "com.github.gerardkok.download.VagrantManager"
+ParentRecipe: "com.github.smithjw-actions.download.VagrantManager"
 
 Process:
   - Processor: "PkgRootCreator"

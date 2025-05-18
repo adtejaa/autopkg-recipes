@@ -1,23 +1,21 @@
 ---
 Description: Downloads the latest version Vagrant Manager, packages it, then uploads it to Jamf.
-Identifier: com.github.adtejaa.jamf.VagrantManager
-MinimumVersion: '2.3'
+Identifier: com.github.smithjw-actions.jamf.VagrantManager
+MinimumVersion: '2.3.0'
 
 
 Input:
-  BYPASS_STOP_PROCESSING_IF_DOWNLOAD_UNCHANGED: null
   DOWNLOAD_MISSING_FILE: null
   NAME: 'Vagrant Manager'
   SOFTWARE_TITLE: '%NAME%'
   CATEGORY: Apps
-  POLICY_CATEGORY: Apps
   PACKAGE_INFO: autopkg
   POLICY_CATEGORY: '%CATEGORY%'
   POLICY_CUSTOM_TRIGGER: install-%NAME%
   POLICY_NAME: '%NAME%'
   POLICY_RUN_COMMAND: ' '
   POLICY_RUN_RECON: 'false'
-  POLICY_TEMPLATE: JamfPolicyTemplate_allcomputers.xml
+  POLICY_TEMPLATE: "Policy_Template-Self_Service.xml"
   REMOVE_OLD_PACKAGES: 'true'
   REPLACE_CATEGORY: 'true'
   REPLACE_POLICY: 'true'
@@ -33,7 +31,7 @@ Input:
   UPDATE_PREDICATE: pkg_uploaded == False
 
 
-ParentRecipe: "com.github.adtejaa.pkg.VagrantManager"
+ParentRecipe: "com.github.smithjw-actions.pkg.VagrantManager"
 ParentRecipeTrustInfo:
 
 Process:

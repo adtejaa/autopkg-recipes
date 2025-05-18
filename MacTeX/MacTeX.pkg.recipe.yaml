@@ -1,8 +1,8 @@
 ---
 Description: "Creates a package from the downloaded MacTeX.pkg."
-Identifier: "com.github.adtejaa.pkg.MacTeX"
+Identifier: "com.github.smithjw-actions.pkg.MacTeX"
 MinimumVersion: '2.3'
-ParentRecipe: "com.github.adtejaa.download.MacTeX"
+ParentRecipe: "com.github.smithjw-actions.download.MacTeX"
 
 Input:
   NAME: "MacTeX"
