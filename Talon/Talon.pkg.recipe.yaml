@@ -1,0 +1,14 @@
+Description: Package the latest version of Talon
+Identifier: com.github.smithjw-actions.pkg.Talon
+ParentRecipe: com.github.smithjw-actions.download.Talon
+MinimumVersion: '2.3'
+Input:
+  NAME: Talon
+  SOFTWARE_TITLE: '%NAME%'
+
+
+Process:
+  - Processor: AppPkgCreator
+    Arguments:
+      app_path: '%pathname%/*.app'
+

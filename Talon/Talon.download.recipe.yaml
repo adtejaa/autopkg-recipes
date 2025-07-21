@@ -1,0 +1,25 @@
+Description: Downloads the latest version of Talon
+Identifier: com.github.smithjw-actions.download.Talon
+MinimumVersion: '2.3'
+
+Input:
+  NAME: Talon
+  SOFTWARE_TITLE: '%NAME%'
+  DOWNLOAD_URL: https://talonvoice.com/dl/latest/talon-mac.dmg
+
+Process:
+  - Processor: URLDownloader
+    Arguments:
+      filename: 'test.dmg'
+      url : "%DOWNLOAD_URL%"
+
+  - Processor: Versioner
+    Arguments:
+      input_plist_path: '%pathname%/Talon.app/Contents/Info.plist'
+
+  - Processor: EndOfCheckPhase
+  
+  - Processor: CodeSignatureVerifier
+    Arguments:
+      input_path: '%pathname%/Talon.app/'
+      requirement: 'identifier "com.talonvoice.Talon" and anchor apple generic and certificate 1[field.1.2.840.113635.100.6.2.6] /* exists */ and certificate leaf[field.1.2.840.113635.100.6.1.13] /* exists */ and certificate leaf[subject.OU] = D7SCFBXQXZ'
